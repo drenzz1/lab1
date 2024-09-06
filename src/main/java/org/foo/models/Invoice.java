@@ -9,6 +9,7 @@ import org.foo.enums.InvoiceStatus;
 import org.foo.enums.InvoiceType;
 import org.hibernate.annotations.Where;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,6 +37,12 @@ public class Invoice extends BaseEntity{
 
     @ManyToOne
     private ClientVendor clientVendor;
+
+     private BigDecimal price;
+
+     private BigDecimal tax;
+
+     private BigDecimal total;
 
     @OneToMany(mappedBy = "invoice")
     private List<InvoiceProduct> invoiceProducts;
