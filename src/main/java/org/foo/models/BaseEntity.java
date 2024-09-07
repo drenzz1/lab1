@@ -22,16 +22,16 @@ public class BaseEntity implements Serializable {
     private Long id;
 
     @Column(nullable = false,updatable = false)
-    public LocalDateTime insertDateTime;
+    public LocalDateTime insertDateTime=LocalDateTime.now();
 
     @Column(nullable = false,updatable = false)
-    public Long insertUserId;
+    public Long insertUserId=1L;
 
     @Column(nullable = false)
-    public LocalDateTime lastUpdateDateTime;
+    public LocalDateTime lastUpdateDateTime=LocalDateTime.now();
 
     @Column(nullable = false)
-    public Long lastUpdateUserId;
+    public Long lastUpdateUserId=1L;
 
     private Boolean isDeleted = false;
 }

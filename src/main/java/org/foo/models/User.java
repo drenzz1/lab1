@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,7 +32,8 @@ public class User extends BaseEntity{
     private boolean enabled;
 
     @ManyToOne
-    private Role role;
+    @JoinColumn(name = "role_id")
+     private Role role;
 
     @ManyToOne
     private Company company;

@@ -4,11 +4,15 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +21,16 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 public class JWTUtil {
 
-  private static final Key SECRET_KEY =
-    Keys.secretKeyFor(SignatureAlgorithm.HS512);
+  @Value("${application.security.jwt.secret-key}")
+  private String secretKey;
+  @Value("${application.security.jwt.expiration}")
+  private long jwtExpiration;
+  @Value("${application.security.jwt.refresh-token.expiration}")
+  private long refreshExpiration;
 
-
+  public String issueToken(String subject) {
+    return issueToken(subject, Map.of());
+  }
 
   public String issueToken(String subject, String ...scopes) {
     return issueToken(subject, Map.of("scopes", scopes));
@@ -34,19 +44,27 @@ public class JWTUtil {
   public String issueToken(
     String subject,
     Map<String, Object> claims) {
-    return Jwts
-      .builder()
+    return buildToken(subject,claims,jwtExpiration);
+  }
+  public String generateRefreshToken(
+    String subject
+  ) {
+    return buildToken(subject,new HashMap<>(),refreshExpiration);
+  }
+  private String buildToken(String subject,
+                            Map<String, Object> claims,
+                            Long expiration){
+    return  Jwts.builder()
       .setClaims(claims)
       .setSubject(subject)
-      .setIssuer(" foo")
+      .setIssuer("dreni")
       .setIssuedAt(Date.from(Instant.now()))
       .setExpiration(
-        Date.from(
-          Instant.now().plus(15, DAYS)
-        )
+        new Date(System.currentTimeMillis()+expiration)
       )
       .signWith(getSigningKey(), SignatureAlgorithm.HS256)
       .compact();
+
   }
 
   public String getSubject(String token) {
@@ -54,16 +72,18 @@ public class JWTUtil {
   }
 
   private Claims getClaims(String token) {
-    return Jwts
+    Claims claims = Jwts
       .parserBuilder()
       .setSigningKey(getSigningKey())
       .build()
       .parseClaimsJws(token)
       .getBody();
+    return claims;
   }
 
   private Key getSigningKey() {
-    return SECRET_KEY;
+
+    return Keys.hmacShaKeyFor(secretKey.getBytes());
   }
 
   public boolean isTokenValid(String jwt, String username) {
@@ -75,4 +95,16 @@ public class JWTUtil {
     Date today = Date.from(Instant.now());
     return getClaims(jwt).getExpiration().before(today);
   }
+  public boolean validateToken(String token) {
+    try {
+      Jwts.parserBuilder()
+        .setSigningKey(secretKey)
+        .build()
+        .parseClaimsJws(token);
+      return true;
+    } catch (Exception ex) {
+      throw new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect",ex.fillInStackTrace());
+    }
+  }
+
 }
