@@ -7,6 +7,6 @@ public record ProductDto(Long id,
                          Integer quantityInStock,
                          Integer lowLimitAlert,
                          ProductUnit productUnit,
-                         CategoryDto categoryDto,
-                         boolean hasProduct) {
+                         CategoryDto categoryDto
+                         ) {
 }

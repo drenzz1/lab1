@@ -8,6 +8,6 @@ public record ClientVendorDto(Long id,
                               String website,
                               ClientVendorType clientVendorType,
                               AddressDto addressDto,
-                              CompanyDto companyDto,
-                              boolean hasInvoice) {
+                              CompanyDto companyDto
+                              ) {
 }

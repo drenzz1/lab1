@@ -19,6 +19,15 @@ public class InvoiceDtoMapper implements Function<Invoice, InvoiceDto> {
 
   @Override
   public InvoiceDto apply(Invoice invoice) {
-    return new InvoiceDto(invoice.getId(),invoice.getInvoiceNo(),invoice.getInvoiceStatus(),invoice.getInvoiceType(),invoice.getDate(),companyDtoMapper.apply(invoice.getCompany()),clientVendorMapper.apply(invoice.getClientVendor()),invoice.getPrice(),invoice.getTax(),invoice.getTotal()) ;
+    return new InvoiceDto(invoice.getId(),
+      invoice.getInvoiceNo(),
+      invoice.getInvoiceStatus(),
+      invoice.getInvoiceType(),
+      invoice.getDate(),
+      companyDtoMapper.apply(invoice.getCompany()),
+      clientVendorMapper.apply(invoice.getClientVendor()),
+      invoice.getPrice(),
+      invoice.getTax(),
+      invoice.getTotal()) ;
   }
 }

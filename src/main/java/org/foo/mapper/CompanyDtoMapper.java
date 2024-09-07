@@ -16,6 +16,11 @@ public class CompanyDtoMapper implements Function<Company, CompanyDto> {
 
   @Override
   public CompanyDto apply(Company company) {
-    return new CompanyDto(company.getId(), company.getTitle(), company.getPhone(), company.getWebsite(),addressDtoMapper.apply(company.getAddress()),company.getCompanyStatus());
+    return new CompanyDto(company.getId(),
+      company.getTitle(),
+      company.getPhone(),
+      company.getWebsite(),
+      addressDtoMapper.apply(company.getAddress()),
+      company.getCompanyStatus());
   }
 }
