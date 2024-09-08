@@ -61,7 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
       String refreshToken = jwtUtil.generateRefreshToken(userDto.username());
 
       // Return response
-      return new AuthenticationResponse(token, refreshToken, userDto);
+      return new AuthenticationResponse(token, refreshToken);
     } else {
       throw new RuntimeException("Unexpected principal type: " + authentication.getPrincipal().getClass().getName());
     }
@@ -87,7 +87,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
       if (jwtUtil.isTokenValid(refreshToken,userDetails.getUsername())){
         var accessToken = jwtUtil.issueToken(userDetails.getUsername());
-        var authResponse = AuthenticationResponse.builder().accesstoken(accessToken)
+        var authResponse = AuthenticationResponse.builder().accessToken(accessToken)
           .refreshToken(refreshToken)
           .build();
 
