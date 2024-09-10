@@ -15,7 +15,6 @@ export class AuthService {
   private readonly accessTokenKey = 'accessToken';
   private readonly accessTokenExpiryKey = 'accessTokenExpiry';
   currentUserEmail = new BehaviorSubject<string | null>(null);
-  currentClubId = new BehaviorSubject<number | null>(null);
 
   constructor(private httpClient: HttpClient, private router: Router) {
     // Check authentication status on application startup
@@ -32,10 +31,6 @@ export class AuthService {
 
   }
 
-  register(user: RegisterDto): Observable<any> {
-    if (user == null) return throwError("User object is null");
-    return this.httpClient.post<any>("http://localhost:8080/api/auth/register", user, { withCredentials: true });
-  }
 
   checkIsAuthenticated(): void {
     const refreshToken: string | null = localStorage.getItem(this.refreshTokenKey);
@@ -58,6 +53,7 @@ export class AuthService {
     console.log('Tokens set');
     this.isAuthenticated.next(true);
     const userEmail = this.getEmailFromToken();
+
     this.setUserEmail(userEmail);
   }
 
@@ -99,7 +95,7 @@ export class AuthService {
     const accessToken: string | null = this.getAccessToken();
     if (!accessToken) return null;
     const payload = this.parseJwtPayload(accessToken);
-    return payload?.role || null;
+    return payload?.scopes[0] || null;
   }
 
   getUserIdFromToken(): number | null {

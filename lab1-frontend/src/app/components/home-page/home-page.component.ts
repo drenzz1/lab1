@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
@@ -13,22 +13,20 @@ class AuthResponse {
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
   }
-
-
-
 }
 
+
 @Component({
-  selector: 'app-login',
+  selector: 'app-home-page',
   standalone: true,
   imports: [
     ReactiveFormsModule,
     NgIf
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.css'
 })
-export class LoginComponent {
+export class HomePageComponent implements OnInit{
   loginFormGroup: FormGroup = new FormGroup<any>({});
   loginError: boolean = false;
   ERRORMSG: string = '';
@@ -36,7 +34,7 @@ export class LoginComponent {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private authService: AuthService,
-              ) { }
+  ) { }
 
   ngOnInit(): void {
     this.authService.checkIsAuthenticated();
@@ -68,11 +66,10 @@ export class LoginComponent {
           if (isEnabled) {
             const role = payload.scopes;
 
-            console.log(role)
 
             if (role[0] === 'Admin' || role[0] === 'ADMIN_CLUB') {
               this.authService.setTokens(res.accessToken, res.refreshToken);
-              this.router.navigateByUrl("/dashboard");
+              this.router.navigateByUrl("/layout");
               // this.sharedNotificationService.readNotificationsFromWebSocket();
             } else {
               console.log("Unknown role:", role[0]);
@@ -99,5 +96,6 @@ export class LoginComponent {
       }));
     }
   }
+
 
 }

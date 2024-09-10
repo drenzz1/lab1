@@ -1,0 +1,15 @@
+.navbar {
+  background-color: #f8f9fa;
+}
+
+.navbar-brand img {
+  height: 45px;
+}
+
+.navbar-nav .nav-link {
+  color: #333;
+}
+
+.nav-user-dropdown {
+  width: 200px;
+}

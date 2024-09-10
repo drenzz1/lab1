@@ -1,18 +1,45 @@
-import { Component } from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {CommonModule} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Observable, of } from 'rxjs';
+import {RouterLink, RouterOutlet} from "@angular/router";
+import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule,RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    NgIf,
+    RouterLink,
+    AsyncPipe
+  ],
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  title = 'my-app';
+  userEmail: string | null = null;
+  constructor(public authService: AuthService) {}
+  ngOnInit(): void {
+    this.authService.isAuthenticated.subscribe(val => {
 
-
-  title = 'lab1-frontend';
-
-
+    })
+    this.authService.getUserEmail().subscribe(email => {
+      this.userEmail = email;
+    });
+  }
+  isAdmin(): Observable<boolean> {
+    const userRole = this.authService.getRoleFromToken();
+    return of(userRole === 'Root User');
+  }
+  isClub(): Observable<boolean> {
+    const userRole = this.authService.getRoleFromToken();
+    return of(userRole === 'Admin');
+  }
+  logout(): void {
+    this.authService.logout();
+  }
+  get userId(): number | null {
+    return this.authService.getUserIdFromToken();
+  }
 }
