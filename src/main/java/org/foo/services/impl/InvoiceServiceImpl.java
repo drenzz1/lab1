@@ -205,7 +205,7 @@ public class InvoiceServiceImpl implements InvoiceService {
       }
 
       ProductDto productDto1 = new ProductDto(productDto.id(), productDto.name(), remainingQuantity,productDto.lowLimitAlert(),productDto.productUnit(),productDto.categoryDto());
-      InvoiceProductDto invoiceProductDto1 = new InvoiceProductDto(invoiceProductDto.id(), invoiceProductDto.quantity(),invoiceProductDto.price(),invoiceProductDto.tax(),invoiceProductDto.total(),invoiceProductDto.profitLoss(),remainingQuantity,invoiceProductDto.invoiceDto(),invoiceProductDto.productDto());
+      InvoiceProductDto invoiceProductDto1 = new InvoiceProductDto(invoiceProductDto.id(), invoiceProductDto.quantity(),invoiceProductDto.price(),invoiceProductDto.tax(),invoiceProductDto.profitLoss(),invoiceProductDto.total(),remainingQuantity,invoiceProductDto.invoiceDto(),invoiceProductDto.productDto());
 
       invoiceProductService.updateInvoiceProduct(invoiceProductDto1);
       productService.updateProduct(productDto.id(), productDto1);

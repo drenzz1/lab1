@@ -5,6 +5,7 @@ import org.foo.models.Invoice;
 import org.foo.models.InvoiceProduct;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.function.Function;
 
 @Component
@@ -23,7 +24,7 @@ public class InvoiceProductDtoMapper implements Function<InvoiceProduct, Invoice
       invoiceProduct.getQuantity(),
       invoiceProduct.getPrice(),
       invoiceProduct.getTax(),
-      invoiceProduct.getTotal(),
+      BigDecimal.ZERO,
       invoiceProduct.getProfitLoss(),
       invoiceProduct.getRemainingQuantity(),
       invoiceDtoMapper.apply(invoiceProduct.getInvoice()),

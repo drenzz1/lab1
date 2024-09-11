@@ -1,6 +1,7 @@
 package org.foo.mapper;
 
 import org.foo.dto.ClientVendorDto;
+import org.foo.dto.CompanyDto;
 import org.foo.models.ClientVendor;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +19,8 @@ public class ClientVendorMapper implements Function<ClientVendor, ClientVendorDt
 
   @Override
   public ClientVendorDto apply(ClientVendor clientVendor) {
+    CompanyDto companyDto= companyDtoMapper.apply(clientVendor.getCompany());
 
-    return new ClientVendorDto(clientVendor.getId(),
-      clientVendor.getClientVendorName(),
-      clientVendor.getPhone(),
-      clientVendor.getWebsite(),
-      clientVendor.getClientVendorType(),
-      addressDtoMapper.apply(clientVendor.getAddress()),
-      companyDtoMapper.apply(clientVendor.getCompany()));
+    return new ClientVendorDto(clientVendor.getId(), clientVendor.getClientVendorName(), clientVendor.getPhone(), clientVendor.getWebsite(), clientVendor.getClientVendorType(),clientVendor.getAddress(),companyDto);
   }
 }

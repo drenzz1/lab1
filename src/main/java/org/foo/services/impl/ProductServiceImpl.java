@@ -10,6 +10,7 @@ import org.foo.services.CompanyService;
 import org.foo.services.InvoiceProductService;
 import org.foo.services.ProductService;
 import org.foo.services.SecurityService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class ProductServiceImpl implements ProductService  {
   private final CategoryRepository categoryRepository;
 
 
-  public ProductServiceImpl(ProductRepository productRepository, ProductDtoMapper productDtoMapper, CompanyService companyService, InvoiceProductService invoiceProductService, SecurityService securityService, CategoryRepository categoryRepository) {
+  public ProductServiceImpl(ProductRepository productRepository, ProductDtoMapper productDtoMapper, CompanyService companyService, @Lazy InvoiceProductService invoiceProductService, SecurityService securityService, CategoryRepository categoryRepository) {
     this.productRepository = productRepository;
     this.productDtoMapper = productDtoMapper;
     this.companyService = companyService;
@@ -53,7 +54,7 @@ public class ProductServiceImpl implements ProductService  {
 
   @Override
   public List<ProductDto> getProductsByCompanyId(Long companyId) {
-    return productRepository.getProductByCompanyId(companyId)
+    return productRepository.findProductsByCategory_CompanyId(companyId)
       .stream()
       .map(productDtoMapper)
       .toList();

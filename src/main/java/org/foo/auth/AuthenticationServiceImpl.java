@@ -39,6 +39,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
   @Override
   public AuthenticationResponse login(AuthenticationRequest authenticationRequest) {
+
     // Authenticate the user
     Authentication authentication = authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(

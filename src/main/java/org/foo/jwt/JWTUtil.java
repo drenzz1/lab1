@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 public class JWTUtil {
@@ -95,16 +94,6 @@ public class JWTUtil {
     Date today = Date.from(Instant.now());
     return getClaims(jwt).getExpiration().before(today);
   }
-  public boolean validateToken(String token) {
-    try {
-      Jwts.parserBuilder()
-        .setSigningKey(secretKey)
-        .build()
-        .parseClaimsJws(token);
-      return true;
-    } catch (Exception ex) {
-      throw new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect",ex.fillInStackTrace());
-    }
-  }
+
 
 }

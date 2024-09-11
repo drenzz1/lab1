@@ -1,7 +1,6 @@
 package org.foo.services.impl;
 
 import org.foo.dto.UserDto;
-import org.foo.mapper.CompanyDtoMapper;
 import org.foo.mapper.UserDtoMapper;
 import org.foo.models.Company;
 import org.foo.models.Role;
@@ -52,12 +51,12 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserDto findByUsername(String username) {
-    return userDtoMapper.apply(userRepository.findByUsername(username));
+    return userDtoMapper.apply(userRepository.findByUsername(username).get());
   }
 
   @Override
   public boolean checkForAdminRole(String username) {
-    User user = userRepository.findByUsername(username);
+    User user = userRepository.findByUsername(username).get();
 
     return user!= null && user.getRole()!=null && user.getRole().getDescription().equals("Admin");
   }
@@ -100,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void delete(String username) {
-    User user = userRepository.findByUsername(username);
+    User user = userRepository.findByUsername(username).get();
     user.setIsDeleted(true);
     userRepository.save(user);
   }

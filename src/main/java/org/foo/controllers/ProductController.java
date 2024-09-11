@@ -65,5 +65,10 @@ public class ProductController {
     return ResponseEntity.status(HttpStatus.OK).build();
 
   }
+
+  @GetMapping
+  public List<ProductDto> getProductsInStockForCompany(){
+    return productService.getProductsInStockForCompany();
+  }
 }
 

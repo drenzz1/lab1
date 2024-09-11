@@ -20,7 +20,7 @@ public class CompanyDtoMapper implements Function<Company, CompanyDto> {
       company.getTitle(),
       company.getPhone(),
       company.getWebsite(),
-      addressDtoMapper.apply(company.getAddress()),
+      company.getAddress(),
       company.getCompanyStatus());
   }
 }

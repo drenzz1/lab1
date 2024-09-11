@@ -1,6 +1,7 @@
 package org.foo.config;
 
 import org.foo.jwt.JWTAuthenticationFilter;
+import org.foo.services.impl.CustomerUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,7 @@ public class SecurityConfig {
 
   @Bean
   public AuthenticationProvider authenticationProvider(
-    CustomUserDetailsService userDetailsService,
+    CustomerUserDetailsService userDetailsService,
     PasswordEncoder passwordEncoder
   ) {
     DaoAuthenticationProvider daoAuthenticationProvider =
