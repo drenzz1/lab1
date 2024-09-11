@@ -1,11 +1,11 @@
-<div class="nav-left-sidebar bg-success-light">
+<div class="nav-left-sidebar gradient-custom">
   <div class="menu-list">
-    <nav class="navbar navbar-expand-lg bg-success-light">
+    <nav class="navbar navbar-expand-lg gradient-custom">
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav flex-column">
           <li class="nav-divider"></li>
           <li class="nav-item" *ngIf="hasRole('Root User')">
-            <a class="nav-link active bg-success-light text-dark"
+            <a class="nav-link active gradient-custom text-dark"
                href="#"
                data-toggle="collapse"
                aria-expanded="false"
@@ -14,10 +14,10 @@
               <i class="fa fa-fw fa-list-ul"></i>CYDEO
               <span class="badge badge-success"></span>
             </a>
-            <div id="submenu-1" class="collapse submenu bg-success">
+            <div id="submenu-1" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
                 <li class="nav-item" *ngIf="hasRole('Root User')">
-                  <a class="nav-link text-white" routerLink="/companies/list">Company Registration</a>
+                  <a class="nav-link text-white" routerLink="/">Company Registration</a>
                 </li>
                 <li class="nav-item" *ngIf="hasRole('Root User')">
                   <a class="nav-link text-white" routerLink="/users/list">User Registration</a>
@@ -27,8 +27,7 @@
           </li>
           <li class="nav-divider"></li>
           <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') || hasRole('Employee')">
-            <a class="nav-link active bg-success-light text-dark"
-               href="#"
+            <a class="nav-link active gradient-custom text-dark btn"
                data-toggle="collapse"
                aria-expanded="false"
                data-target="#submenu-2"
@@ -36,7 +35,7 @@
               <i class="fa fa-fw fa-list-ul"></i>Management
               <span class="badge badge-success"></span>
             </a>
-            <div id="submenu-2" class="collapse submenu bg-success">
+            <div id="submenu-2" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
                 <li class="nav-item" *ngIf="hasRole('Admin')">
                   <a class="nav-link text-white" routerLink="/users/list">User Registration</a>
@@ -49,7 +48,7 @@
           </li>
           <li class="nav-divider"></li>
           <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') || hasRole('Employee')">
-            <a class="nav-link active bg-success-light text-dark"
+            <a class="nav-link active gradient-custom text-dark"
                href="#"
                data-toggle="collapse"
                aria-expanded="false"
@@ -58,7 +57,7 @@
               <i class="fa fa-fw fa-list-ul"></i>Stock Management
               <span class="badge badge-success"></span>
             </a>
-            <div id="submenu-3" class="collapse submenu bg-success">
+            <div id="submenu-3" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
                 <li class="nav-item">
                   <a class="nav-link text-white" routerLink="/categories/list">Category</a>
@@ -71,7 +70,7 @@
           </li>
           <li class="nav-divider"></li>
           <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') || hasRole('Employee')">
-            <a class="nav-link active bg-success-light text-dark"
+            <a class="nav-link active gradient-custom text-dark"
                href="#"
                data-toggle="collapse"
                aria-expanded="false"
@@ -80,7 +79,7 @@
               <i class="fa fa-fw fa-list-ul"></i>Invoices
               <span class="badge badge-success"></span>
             </a>
-            <div id="submenu-4" class="collapse submenu bg-success">
+            <div id="submenu-4" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
                 <li class="nav-item">
                   <a class="nav-link text-white" routerLink="/purchaseInvoices/list">Purchase Invoice</a>
@@ -93,7 +92,7 @@
           </li>
           <li class="nav-divider"></li>
           <li class="nav-item" *ngIf="hasRole('Manager') || hasRole('Admin')">
-            <a class="nav-link active bg-success-light text-dark"
+            <a class="nav-link active gradient-custom text-dark"
                href="#"
                data-toggle="collapse"
                aria-expanded="false"
@@ -102,7 +101,7 @@
               <i class="fa fa-fw fa-list-ul"></i>Reporting
               <span class="badge badge-success"></span>
             </a>
-            <div id="submenu-5" class="collapse submenu bg-success">
+            <div id="submenu-5" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
                 <li class="nav-item">
                   <a class="nav-link text-white" routerLink="/reports/profitLossData">Profit/Loss Report</a>
@@ -118,3 +117,5 @@
     </nav>
   </div>
 </div>
+
+

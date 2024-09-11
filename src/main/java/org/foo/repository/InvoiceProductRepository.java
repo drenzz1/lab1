@@ -7,18 +7,21 @@ import org.foo.models.Invoice;
 import org.foo.models.InvoiceProduct;
 import org.foo.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface InvoiceProductRepository extends JpaRepository<InvoiceProduct, Long> {
 
-  InvoiceProduct findInvoiceProductById(Long id);
-  List<InvoiceProduct> findAllByInvoice(Invoice invoice);
+
+
   List<InvoiceProduct> findAllByInvoice_Id(Long id);
-  List<InvoiceProduct> findAllByInvoice_InvoiceTypeAndInvoice_Company(InvoiceType invoiceType, Company company);
-  List<InvoiceProduct> findAllByInvoice_InvoiceStatusAndInvoice_Company(InvoiceStatus invoiceStatus, Company company);
-  List<InvoiceProduct> findInvoiceProductsByInvoiceInvoiceTypeAndProductAndRemainingQuantityNotOrderByIdAsc(InvoiceType invoiceType, Product product, Integer remainingQuantity);
-  List<InvoiceProduct> findAllInvoiceProductByProductId(Long id);
+
+  @Query("select ip from InvoiceProduct ip where ip.invoice.invoiceType = ?1 and ip.product = ?2 and ip.invoice.invoiceStatus = 'APPROVED' order by ip.id")
+  List<InvoiceProduct> findApprovedInvoiceProductsForProduct(InvoiceType type, Product product);
+
+  Optional<InvoiceProduct> findByProduct_Id(Long id);
 }

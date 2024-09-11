@@ -29,7 +29,6 @@ public class User extends BaseEntity{
 
     private String phone;
 
-    private boolean enabled;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

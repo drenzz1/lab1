@@ -44,7 +44,5 @@ public class Invoice extends BaseEntity{
 
      private BigDecimal total;
 
-    @OneToMany(mappedBy = "invoice")
-    private List<InvoiceProduct> invoiceProducts;
 
 }
