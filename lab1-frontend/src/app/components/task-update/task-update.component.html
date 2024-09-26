@@ -1,0 +1,89 @@
+
+<div class="home">
+  <div class="dashboard-wrapper">
+    <div class="dashboard-ecommerce">
+      <div class="container-fluid dashboard-content">
+        <div class="ecommerce-widget">
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              <section class="panel panel-transparent">
+                <header class="panel-heading">
+                  <h2 class="panel-title">Task Update</h2>
+                </header>
+
+                <div class="panel-body">
+                  <!-- ------------------------FORM START----------------------------- -->
+                  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label>Project</label>
+                          <textarea [value]="projectText.value" id="project" class="form-control" rows="3"   readonly></textarea>
+                          <div *ngIf="taskForm.get('project')?.invalid && taskForm.get('project')?.touched"
+                               class="invalid-feedback">
+                            Project is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label>Assigned Employee</label>
+                          <textarea [value]="assignedEmployee.value" id="assignedEmployee" class="form-control" rows="3"  readonly></textarea>
+                          <div *ngIf="taskForm.get('assignedEmployee')?.invalid && taskForm.get('assignedEmployee')?.touched"
+                               class="invalid-feedback">
+                            Assigned Employee is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="tasksubject" class="col-form-label">Task Subject</label>
+                          <input id="tasksubject" type="text" class="form-control" placeholder="task subject"
+                                 formControlName="taskSubject">
+                          <div *ngIf="taskForm.get('taskSubject')?.invalid && taskForm.get('taskSubject')?.touched"
+                               class="invalid-feedback">
+                            Task Subject is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="taskdetail">Task Detail</label>
+                          <textarea id="taskdetail" class="form-control" placeholder="task detail"
+                                    formControlName="taskDetail"></textarea>
+                          <div *ngIf="taskForm.get('taskDetail')?.invalid && taskForm.get('taskDetail')?.touched"
+                               class="invalid-feedback">
+                            Task Detail is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="float-right">
+                          <button class="btn btn-success rounded-0" type="submit" [disabled]="taskForm.invalid">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- ------------------------FORM END----------------------------- -->
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

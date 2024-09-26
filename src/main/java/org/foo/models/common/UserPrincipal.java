@@ -29,12 +29,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return this.user.getPassWord();
     }
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return this.user.getUserName();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !user.getCompany().getCompanyStatus().equals(CompanyStatus.PASSIVE);
+        return true;
     }
 
     @Override
@@ -54,26 +54,11 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        return true;
     }
 
     public Long getId() {
         return this.user.getId();
     }
 
-    /**
-     * to show logged-in user firstname and lastname in UI dropdown menu
-     */
-    public String getFullNameForProfile() {
-        return this.user.getFirstname() + " " + this.user.getLastname();
-    }
-
-    /**
-     * This method is defined to show logged-in user's company title for simplicity
-     *
-     * @return The title of logged-in user's Company in String
-     */
-    public String getCompanyTitleForProfile() {
-        return this.user.getCompany().getTitle().toUpperCase();
-    }
 }

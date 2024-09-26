@@ -9,6 +9,7 @@ import org.foo.enums.InvoiceStatus;
 import org.foo.enums.InvoiceType;
 import org.hibernate.annotations.Where;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,23 +22,26 @@ import java.util.List;
 @Where(clause = "is_deleted=false")
 public class Invoice extends BaseEntity{
 
-    private String invoiceNo;
 
-    @Enumerated(EnumType.STRING)
-    private InvoiceStatus invoiceStatus;
+  private String invoiceNo;
 
-    @Enumerated(EnumType.STRING)
-    private InvoiceType invoiceType;
+  @Enumerated(EnumType.STRING)
+  private InvoiceStatus invoiceStatus;
 
-    private LocalDate date;
+  @Enumerated(EnumType.STRING)
+  private InvoiceType invoiceType;
 
-    @ManyToOne
-    private Company company;
+  private LocalDate date;
 
-    @ManyToOne
-    private ClientVendor clientVendor;
+  @ManyToOne
+  private Company company;
 
-    @OneToMany(mappedBy = "invoice")
-    private List<InvoiceProduct> invoiceProducts;
+  @ManyToOne
+  private ClientVendor clientVendor;
+
+  @OneToMany(mappedBy = "invoice")
+  private List<InvoiceProduct> invoiceProducts;
+
+
 
 }

@@ -1,0 +1,60 @@
+<div class="home">
+
+      <!-- ------------------------TABLE START----------------------------- -->
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="col-md-12">
+            <section class="panel">
+              <header class="panel-heading">
+                <h2 class="panel-title">Project List</h2>
+              </header>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th scope="col">Project Code</th>
+                      <th scope="col">Project Name</th>
+                      <th scope="col">Start/End Date</th>
+                      <th scope="col">Manager</th>
+                      <th scope="col">Unfinished/Completed</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let project of projects">
+                      <td>{{ project.projectCode }}</td>
+                      <td>{{ project.projectName }}</td>
+                      <td>{{ project.startDate | date:'MM/dd/yyyy' }} to {{ project.endDate | date:'MM/dd/yyyy' }}</td>
+                      <td>{{ project.assignedManager.firstName + ' ' + project.assignedManager.lastName }}</td>
+                      <td>{{ project.unfinishedTaskCounts + '/' + project.completeTaskCounts }}</td>
+                      <td>{{ project.projectStatus }}</td>
+                      <td>
+                        <!-- Button is enabled only if there are no unfinished tasks and the project status is not 'Completed' -->
+                        <a *ngIf="project.unfinishedTaskCounts === 0 && project.projectStatus !== 'COMPLETE'"
+                           class="btn btn-info rounded-0"
+                           (click)="onComplete(project.id)"
+                           >
+                          Complete
+                        </a>
+
+                        <!-- Button is disabled if there are unfinished tasks or if the project is already completed -->
+                        <a *ngIf="project.unfinishedTaskCounts > 0 || project.projectStatus === 'COMPLETE'"
+                           class="btn btn-secondary-link rounded-0 disabled-button">
+                          Complete
+                        </a>
+                      </td>
+
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <!-- ------------------------TABLE END----------------------------- -->
+    </div>
+

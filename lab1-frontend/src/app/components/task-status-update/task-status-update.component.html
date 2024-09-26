@@ -1,0 +1,116 @@
+<div class="home">
+
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              <section class="panel panel-transparent">
+                <header class="panel-heading">
+                  <h2 class="panel-title">Task Status</h2>
+                </header>
+                <div class="panel-body">
+                  <!-- ------------------------FORM START----------------------------- -->
+                  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-xs-12">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-12 col-xs-12">
+                            <div class="form-group">
+                              <label for="project">Project</label>
+                              <input formControlName="project" id="project" type="text" class="form-control"  readonly />
+                              <div *ngIf="taskForm.get('taskSubject')?.invalid && taskForm.get('taskSubject')?.touched" class="invalid-feedback">
+                                <ul>
+
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-xs-12">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-12 col-xs-12">
+                            <div class="form-group">
+                              <label for="assignedEmployee">Assigned Employee</label>
+                              <input formControlName="assignedEmployee" id="assignedEmployee" type="text" class="form-control" readonly />
+                              <div *ngIf="taskForm.get('taskSubject')?.invalid && taskForm.get('taskSubject')?.touched" class="invalid-feedback">
+                                <ul>
+
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-xs-12">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-12 col-xs-12">
+                            <div class="form-group">
+                              <label for="tasksubject">Task Subject</label>
+                              <input formControlName="taskSubject" id="tasksubject" type="text" class="form-control" readonly />
+                              <div *ngIf="taskForm.get('taskSubject')?.invalid && taskForm.get('taskSubject')?.touched" class="invalid-feedback">
+                                <ul>
+
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-xs-12">
+                        <div class="row">
+                          <div class="col-sm-12 col-md-12 col-xs-12">
+                            <div class="form-group">
+                              <label>Task Detail</label>
+                              <textarea formControlName="taskDetail" id="taskdetail" class="form-control" rows="3"  readonly></textarea>
+                              <div *ngIf="taskForm.get('taskDetail')?.invalid && taskForm.get('taskDetail')?.touched" class="invalid-feedback">
+                                <ul>
+
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-xs-12">
+                        <div class="form-group">
+                          <label>Status</label>
+                          <select formControlName="taskStatus" class="custom-select">
+                            <option *ngFor="let status of statuses" [ngValue]="status.value">
+                              {{ status.value }}
+                            </option>
+                          </select>
+                          <div *ngIf="taskForm.get('taskStatus')?.invalid && taskForm.get('taskStatus')?.touched" class="invalid-feedback">
+                            <ul>
+
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-xs-12">
+                        <div class="float-right">
+                          <button class="btn btn-success rounded-0" type="submit" [disabled]="taskForm.invalid">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- ------------------------FORM END----------------------------- -->
+                </div>
+              </section>
+            </div>
+          </div>
+
+
+</div>
