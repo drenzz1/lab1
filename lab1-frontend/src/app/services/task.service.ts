@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {TaskDto} from "../common/task-dto";
+import {Status} from "../enums/status";
+import {User} from "../common/user";
 
 
 
@@ -68,6 +70,15 @@ export class TaskService {
   getCompletedTasks(): Observable<TaskDto[]> {
     return this.http.get<TaskDto[]>(`${this.apiUrl}/completed`, {
       headers: this.getHeaders()
+    });
+  }
+
+
+  changeStatus(taskId: number, status: string) {
+    const params = new HttpParams().set('status', status);
+    return this.http.get<User[]>(` http://localhost:8080/api/task/changeStatus/${taskId}`,{
+      headers: this.getHeaders(),
+      params
     });
   }
 }

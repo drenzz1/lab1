@@ -7,6 +7,8 @@ import org.foo.services.TaskService;
 import org.foo.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -43,6 +45,8 @@ public class TaskController {
   }
   @PutMapping("/edit/{id}")
   public void editTask(@PathVariable Long id, @RequestBody TaskDto task) {
+    task.setTaskStatus(Status.OPEN);
+    task.setAssignedDate(LocalDate.now());
     taskService.update(id,task);
   }
 
@@ -54,6 +58,12 @@ public class TaskController {
   public List<TaskDto> getCompletedTasks() {
     return taskService.findAllTasksByStatus(Status.COMPLETE);
   }
+
+  @GetMapping("/changeStatus/{id}")
+  public void changeStatus(@PathVariable("id")Long id, @RequestParam String status) {
+    taskService.updateStatus(id,status);
+  }
+
 
 
 }

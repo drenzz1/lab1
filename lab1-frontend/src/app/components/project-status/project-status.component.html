@@ -31,12 +31,21 @@
                       <td>{{ project.unfinishedTaskCounts + '/' + project.completeTaskCounts }}</td>
                       <td>{{ project.projectStatus }}</td>
                       <td>
-                        <a *ngIf="project.unfinishedTaskCounts === 0 && project.projectStatus !== 'Completed'"
+                        <!-- Button is enabled only if there are no unfinished tasks and the project status is not 'Completed' -->
+                        <a *ngIf="project.unfinishedTaskCounts === 0 && project.projectStatus !== 'COMPLETE'"
                            class="btn btn-info rounded-0"
-                           [routerLink]="['/project/manager/complete', project.projectCode]">Complete</a>
-                        <a *ngIf="project.unfinishedTaskCounts > 0 || project.projectStatus === 'Completed'"
-                           class="btn btn-info rounded-0 disabled-button">Complete</a>
+                           (click)="onComplete(project.id)"
+                           >
+                          Complete
+                        </a>
+
+                        <!-- Button is disabled if there are unfinished tasks or if the project is already completed -->
+                        <a *ngIf="project.unfinishedTaskCounts > 0 || project.projectStatus === 'COMPLETE'"
+                           class="btn btn-secondary-link rounded-0 disabled-button">
+                          Complete
+                        </a>
                       </td>
+
                     </tr>
                     </tbody>
                   </table>

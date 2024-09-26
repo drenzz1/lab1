@@ -89,8 +89,9 @@ export class UserCreateComponent implements OnInit{
     return [];
   }
 
-  onUpdate(user: any) {
-    this.router.navigate([`/layout/user-edit/${user.id}`]); // Navigating to 'user-edit' route with user ID
+  onUpdate(user: number) {
+
+    this.router.navigate([`/layout/user-edit/${user}`]); // Navigating to 'user-edit' route with user ID
   }
 
   onDelete(userName: number) {

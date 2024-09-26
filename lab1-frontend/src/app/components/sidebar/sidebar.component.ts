@@ -21,7 +21,8 @@ export class SidebarComponent {
 
 
   hasRole(role: string): boolean {
-    return true;
+    const boolean = this.authService.getRoleFromToken();
+    return boolean===role;
   }
 
 }

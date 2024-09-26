@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {ProjectService} from "../../services/project.service";
 import {UserService} from "../../services/user.service";
 import {TaskService} from "../../services/task.service";
@@ -26,7 +26,7 @@ export class TaskComponent implements OnInit {
   projects: any[] = []; // Replace with your actual project model
   employees: any[] = []; // Replace with your actual employee model
 
-  constructor(private fb: FormBuilder,private projectService:ProjectService,private userService:UserService,private taskService:TaskService) {
+  constructor(private fb: FormBuilder,private projectService:ProjectService,private userService:UserService,private taskService:TaskService,private router :Router) {
     this.taskForm = this.fb.group({
       project: ['', Validators.required],
       assignedEmployee: ['', Validators.required],
@@ -62,6 +62,7 @@ export class TaskComponent implements OnInit {
   onSubmit() {
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
+      console.log(taskData)
       this.taskService.createTask(taskData).subscribe({
         next: () => {
           location.reload();
@@ -86,5 +87,18 @@ export class TaskComponent implements OnInit {
     return [];
   }
 
+
+  onDelete(id:number) {
+    this.taskService.deleteTask(id).subscribe({
+      next: () => {
+        location.reload(); // Refresh the page after successful submission
+      },
+      error: (err) => console.error('Error creating user', err)
+    });
+  }
+
+  update(id:number) {
+    this.router.navigate([`/layout/task-edit/${id}`]); // Navigating to 'user-edit' route with user ID
+  }
   // Additional methods for updating and deleting tasks can be added here
 }

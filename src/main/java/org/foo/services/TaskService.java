@@ -22,9 +22,11 @@ public interface TaskService {
 
   List<TaskDto> listAllTasksByStatusIsNot(Status status);
 
-  void updateStatus(TaskDto task);
+
 
   List<TaskDto> findAllTasksByStatus(Status status);
 
   List<TaskDto> readAllByAssignedEmployee(User assignedEmployee);
+
+  void updateStatus(Long id, String status);
 }

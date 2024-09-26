@@ -29,4 +29,13 @@ export class ProjectListComponent implements OnInit {
       this.projects=data;
     })
   }
+
+  onComplete(id:number) {
+    this.projectService.completeProject(id).subscribe({
+      next: () => {
+        location.reload();
+      },
+      error: (err) => console.error('Error creating user', err)
+    })
+  }
 }

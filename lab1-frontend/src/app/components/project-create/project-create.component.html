@@ -140,22 +140,22 @@
                       <td>{{ project.assignedManager.firstName + ' ' + project.assignedManager.lastName }}</td>
                       <td>{{ project.projectStatus }}</td>
                       <td>
-                        <a *ngIf="project.projectStatus.value !== 'Completed'"
+                        <a *ngIf="project.projectStatus !== 'COMPLETE'"
                            class="btn btn-warning rounded-0"
-                           [routerLink]="['/project/complete', project.projectCode]">Update
+                           (click)="update(project.id)">Update
                         </a>
-                        <a *ngIf="project.projectStatus.value === 'Completed'"
-                           class="btn btn-warning rounded-0 disabled-button">Update
+                        <a *ngIf="project.projectStatus === 'COMPLETE'"
+                           class="btn btn-secondary-link rounded-0 disabled-button">Update
                         </a>
                         <a [routerLink]="['/project/delete', project.projectCode]">
-                          <button type="button" class="btn btn-danger rounded-0">Delete</button>
+                          <button type="button" class="btn btn-danger rounded-0" (click)="onDelete(project.id)">Delete</button>
                         </a>
-                        <a *ngIf="project.unfinishedTaskCounts === 0 && project.projectStatus.value !== 'Completed'"
-                           class="btn btn-info rounded-0"
-                           [routerLink]="['/project/complete', project.projectCode]">Complete
+                        <a *ngIf="project.unfinishedTaskCounts==0  && project.projectStatus !== 'COMPLETE'"
+                           class="btn btn-primary rounded-0" (click)="complete(project.id)"
+                           >Complete
                         </a>
-                        <a *ngIf="project.unfinishedTaskCounts > 0 || project.projectStatus.value === 'Completed'"
-                           class="btn btn-info rounded-0 disabled-button">Complete
+                        <a *ngIf=" project.unfinishedTaskCounts>0  || project.projectStatus === 'COMPLETE'"
+                           class="btn btn-secondary-link rounded-0 disabled-button"  >Complete
                         </a>
                       </td>
                     </tr>

@@ -10,6 +10,7 @@ import {ProjectUpdateComponent} from "./components/project-update/project-update
 import {ProjectListComponent} from "./components/project-status/project-status.component";
 import {PendingTaskComponent} from "./components/pending-task/pending-task.component";
 import {ArchivedTasksComponent} from "./components/archived-tasks/archived-tasks.component";
+import {TaskStatusUpdateComponent} from "./components/task-status-update/task-status-update.component";
 
 
 export const routes: Routes = [
@@ -20,6 +21,7 @@ export const routes: Routes = [
     children: [
       {path: 'user-create',component:UserCreateComponent},
       {path: 'user-edit/:id',component:UserUpdateComponent},
+      {path: 'task-status-update/:id',component:TaskStatusUpdateComponent},
       {path: 'project-status',component:ProjectListComponent},
       {path: 'task-create',component:TaskComponent},
       {path: 'task-edit/:id',component:TaskUpdateComponent},

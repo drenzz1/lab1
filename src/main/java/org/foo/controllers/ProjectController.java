@@ -22,6 +22,10 @@ public class ProjectController {
   public List<ProjectDto> getAllProjects() {
     return projectService.listAllProjects();
   }
+  @GetMapping("/list-all/{id}")
+  public ProjectDto getProject(@PathVariable("id")Long id){
+    return projectService.findById(id);
+  }
   @GetMapping("/list-all/manager")
   public List<ProjectDto> getAllProjects1() {
     return projectService.listAllProjectDetails();

@@ -66,15 +66,21 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public void update(Long id ,TaskDto taskDTO) {
-    Optional<Task> task = taskRepository.findById(id);
+    taskRepository.findById(id).ifPresent(task -> {
 
 
-    if (task.isPresent()){
-      task.get().setId(taskDTO.getId());
-      task.get().setTaskStatus(taskDTO.getTaskStatus()== null? task.get().getTaskStatus(): taskDTO.getTaskStatus());
-      task.get().setAssignedDate(task.get().getAssignedDate());
-      taskRepository.save(task.get());
-    }
+
+
+      task.setTaskStatus(taskDTO.getTaskStatus());
+      task.setAssignedDate(taskDTO.getAssignedDate());
+      task.setTaskSubject(taskDTO.getTaskSubject());
+      task.setTaskDetail(taskDTO.getTaskDetail());
+
+      taskRepository.save(task);
+      }
+      );
+
+
 
   }
 
@@ -121,14 +127,7 @@ public class TaskServiceImpl implements TaskService {
     return list.stream().map(taskMapper).collect(Collectors.toList());
   }
 
-  @Override
-  public void updateStatus(TaskDto taskDTO) {
-    Optional<Task> task=taskRepository.findById(taskDTO.getId());
-    if (task.isPresent()){
-      task.get().setTaskStatus(taskDTO.getTaskStatus());
-      taskRepository.save(task.get());
-    }
-  }
+
 
   @Override
   public List<TaskDto> findAllTasksByStatus(Status status) {
@@ -142,6 +141,14 @@ public class TaskServiceImpl implements TaskService {
   public List<TaskDto> readAllByAssignedEmployee(User assignedEmployee) {
     List<Task>list = taskRepository.findAllByAssignedEmployee(assignedEmployee);
     return list.stream().map(taskMapper).collect(Collectors.toList());
+  }
+
+  @Override
+  public void updateStatus(Long id, String status) {
+    taskRepository.findById(id).ifPresent(task -> {
+      task.setTaskStatus(Status.valueOf(status));
+      taskRepository.save(task);
+    });
   }
 
   private List<TaskDto>listAllByProject(ProjectDto projectDTO){

@@ -34,7 +34,7 @@ private final CompanyService companyService;
   }
 
   @GetMapping("/list/{id}")
-  public UserDto getUserById(@PathVariable long id){
+  public UserDto getUserById(@PathVariable Long id){
     return userService.findById(id);
   }
   @PostMapping("/create")

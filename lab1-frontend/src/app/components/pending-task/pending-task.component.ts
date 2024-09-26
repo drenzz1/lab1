@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe, NgForOf} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {TaskService} from "../../services/task.service";
 
 @Component({
@@ -17,7 +17,7 @@ import {TaskService} from "../../services/task.service";
 export class PendingTaskComponent  implements OnInit {
   tasks: any[] = []; // Replace with your actual task model
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService,private router:Router) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -30,4 +30,7 @@ export class PendingTaskComponent  implements OnInit {
   }
 
 
+  update(id:number) {
+    this.router.navigate([`/layout/task-status-update/${id}`]); // Navigating to 'user-edit' route with user ID
+  }
 }

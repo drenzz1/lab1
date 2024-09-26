@@ -43,10 +43,6 @@ public class ProjectServiceImpl implements ProjectService {
     return  projectMapper.apply(projectRepository.findByProjectCode(code));
   }
 
-  @Override
-  public List<ProjectDto> listAllProjects() {
-    return projectRepository.findAll().stream().map(projectMapper).toList();
-  }
 
   @Override
   public void save(ProjectDto projectDTO) {
@@ -62,7 +58,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     projectRepository.findById(id).ifPresent(project1 -> {
-      project1.setProjectStatus(project.getProjectStatus());
+      project1.setProjectName(projectDTO.getProjectName());
+      project1.setStartDate(projectDTO.getStartDate());
+      project1.setEndDate(projectDTO.getEndDate());
+      project1.setProjectDetail(projectDTO.getProjectDetail());
+      project1.setProjectStatus(projectDTO.getProjectStatus());
+      project1.setProjectStatus(Status.OPEN);
+
       projectRepository.save(project1);
     });
   }
@@ -104,10 +106,26 @@ public class ProjectServiceImpl implements ProjectService {
     ).collect(Collectors.toList());
 
   }
+  @Override
+  public List<ProjectDto> listAllProjects() {
+    return projectRepository.findAll().stream().map(project -> {
+      ProjectDto obj=projectMapper.apply(project);
+      obj.setUnfinishedTaskCounts(taskService.totalNonCompletedTask(project.getProjectCode()));
+      obj.setCompleteTaskCounts(taskService.totalCompletedTask(project.getProjectCode()));
+      return obj;
+    }).collect(Collectors.toList());
+  }
+
 
   @Override
   public List<ProjectDto> readAllByAssignedManager(User assignedManager) {
     List<Project> list = projectRepository.findAllByAssignedManager(assignedManager);
     return list.stream().map(projectMapper).collect(Collectors.toList());
+  }
+
+  @Override
+  public ProjectDto findById(Long id) {
+   return  projectMapper.apply(projectRepository.findById(id).get());
+
   }
 }

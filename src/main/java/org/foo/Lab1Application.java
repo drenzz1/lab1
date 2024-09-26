@@ -33,7 +33,7 @@ public class Lab1Application {
 //      String lastName = name.lastName();
 //      User customer = new User(
 //        "Dreni" , "Halili",
-//        firstName.toLowerCase() + "." + lastName.toLowerCase() + "@gmail.com",
+//"just.drenzz" + "@gmail.com",
 //        passwordEncoder.encode("password"), true,"044321992",
 //        roleRepository.findById(1L).get()
 //        ,

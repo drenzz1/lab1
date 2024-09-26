@@ -4,7 +4,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav flex-column">
           <li class="nav-divider"></li>
-          <li class="nav-item" *ngIf="hasRole('Root User')">
+          <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') ">
             <a class="nav-link active gradient-custom text-dark"
                href="#"
                data-toggle="collapse"
@@ -16,17 +16,17 @@
             </a>
             <div id="submenu-1" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
-                <li class="nav-item" *ngIf="hasRole('Root User')">
+                <li class="nav-item" *ngIf="hasRole('Admin')">
                   <a class="nav-link text-white" routerLink="/layout/user-create">User Create</a>
                 </li>
-                <li class="nav-item" *ngIf="hasRole('Root User')">
+                <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') ">
                   <a class="nav-link text-white" routerLink="/layout/project-create">Project Create</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="nav-divider"></li>
-          <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') || hasRole('Employee')">
+          <li class="nav-item" *ngIf="hasRole('Manager') ">
             <a class="nav-link active gradient-custom text-dark btn"
                data-toggle="collapse"
                aria-expanded="false"
@@ -37,17 +37,17 @@
             </a>
             <div id="submenu-2" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
-                <li class="nav-item" *ngIf="hasRole('Admin')">
+                <li class="nav-item" *ngIf="hasRole('Manager')">
                   <a class="nav-link text-white" routerLink="/layout/task-create">Task Create</a>
                 </li>
-                <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') || hasRole('Employee')">
+                <li class="nav-item" *ngIf="hasRole('Manager') ">
                   <a class="nav-link text-white" routerLink="/layout/project-status">Project Status</a>
                 </li>
               </ul>
             </div>
           </li>
           <li class="nav-divider"></li>
-          <li class="nav-item" *ngIf="hasRole('Admin') || hasRole('Manager') || hasRole('Employee')">
+          <li class="nav-item" *ngIf="hasRole('Employee')">
             <a class="nav-link active gradient-custom text-dark"
                href="#"
                data-toggle="collapse"
@@ -59,10 +59,10 @@
             </a>
             <div id="submenu-3" class="collapse submenu gradient-custom">
               <ul class="nav flex-column">
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="hasRole('Employee')">
                   <a class="nav-link text-white" routerLink="/layout/pending-tasks">Pending Tasks</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="hasRole('Employee')">
                   <a class="nav-link text-white" routerLink="/layout/archived-tasks">Archive</a>
                 </li>
               </ul>

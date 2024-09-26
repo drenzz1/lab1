@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {ProjectDto} from "../common/project-dto";
+import {User} from "../common/user";
 
 
 @Injectable({
@@ -43,7 +44,8 @@ export class ProjectService {
 
   // Method to update an existing project
   updateProject(id: number, projectDto: ProjectDto): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/edit/${id}`, projectDto, {
+    console.log(projectDto)
+    return this.http.put<void>(` http://localhost:8080/api/project/edit/${id}`, projectDto, {
       headers: this.getHeaders()
     });
   }
@@ -60,5 +62,9 @@ export class ProjectService {
     return this.http.get<void>(`${this.apiUrl}/complete/${id}`, {
       headers: this.getHeaders()
     });
+  }
+
+  getProjectById(projectId: number):Observable<ProjectDto>  {
+    return this.http.get<ProjectDto>(`http://localhost:8080/api/project/list-all/${projectId}` ,{headers: this.getHeaders()})
   }
 }

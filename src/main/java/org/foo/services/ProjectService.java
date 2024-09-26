@@ -15,4 +15,6 @@ public interface ProjectService {
   List<ProjectDto>listAllProjectDetails();
 
   List<ProjectDto> readAllByAssignedManager(User assignedManager);
+
+  ProjectDto findById(Long id);
 }

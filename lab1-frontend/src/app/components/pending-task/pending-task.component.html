@@ -27,7 +27,7 @@
                 <td>{{ task.assignedDate | date:'MM/dd/yyyy' }}</td>
                 <td>{{ task.taskStatus }}</td>
                 <td>
-                  <a [routerLink]="['/task/employee/edit', task.id]" class="btn btn-warning rounded-0">Update</a>
+                  <a (click)="update(task.id)" class="btn btn-warning rounded-0">Update</a>
                 </td>
               </tr>
               </tbody>

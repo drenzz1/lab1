@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {ProjectService} from "../../services/project.service";
 
@@ -23,7 +23,7 @@ export class ProjectCreateComponent implements OnInit{
   projects: any[] = []; // Replace with your actual project model
   managers: any[] = []; // Replace with your actual manager model
 
-  constructor(private fb: FormBuilder,private userService : UserService,private projectService:ProjectService) {
+  constructor(private fb: FormBuilder,private userService : UserService,private projectService:ProjectService,private router :Router) {
     this.projectForm = this.fb.group({
       projectName: ['', Validators.required],
       projectCode: ['', Validators.required],
@@ -39,6 +39,7 @@ export class ProjectCreateComponent implements OnInit{
 
     this.loadManagers();
     this.loadProjects();
+
   }
 
   loadManagers() {
@@ -94,4 +95,28 @@ export class ProjectCreateComponent implements OnInit{
   }
 
 
+  onDelete(id:number) {
+    this.projectService.deleteProject(id).subscribe({
+      next: () => {
+        location.reload(); // Refresh the page after successful submission
+      },
+      error: (err) => console.error('Error creating user', err)
+    });
+  }
+
+  update(id:number) {
+    this.router.navigate([`/layout/project-edit/${id}`]); // Navigating to 'user-edit' route with user ID
+  }
+
+  complete(id:number) {
+    console.log("HEllo")
+    console.log(this.projects)
+
+    this.projectService.completeProject(id).subscribe({
+      next: () => {
+
+      },
+      error: (err) => console.error('Error creating user', err)
+    });
+  }
 }

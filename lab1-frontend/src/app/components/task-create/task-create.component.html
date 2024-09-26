@@ -123,10 +123,10 @@
                       <td>
                         <a *ngIf="task.taskStatus !== 'Completed'"
                            class="btn btn-warning rounded-0"
-                           [routerLink]="['/task/update', task.id]">Update</a>
+                           (click)="update(task.id)">Update</a>
                         <a *ngIf="task.taskStatus === 'Completed'"
                            class="btn btn-warning rounded-0 disabled-button">Update</a>
-                        <a [routerLink]="['/task/delete', task.id]"
+                        <a (click)="onDelete(task.id)"
                            class="btn btn-danger rounded-0">Delete</a>
                       </td>
                     </tr>

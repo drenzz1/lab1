@@ -1,1 +1,114 @@
-<p>project-update works!</p>
+<div class="home">
+
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <section class="panel panel-transparent">
+              <header class="panel-heading">
+                <h2 class="panel-title">Project Create</h2>
+              </header>
+              <div class="panel-body">
+
+                <!-- ------------------------FORM START----------------------------- -->
+                <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="projectname" class="col-form-label">Project Name</label>
+                        <input id="projectname" formControlName="projectName" type="text"
+                               class="form-control" placeholder="Project name">
+                        <div *ngIf="projectForm.get('projectName')?.invalid && projectForm.get('projectName')?.touched" class="invalid-feedback">
+                          <ul>
+                            <li *ngFor="let err of getFormErrors('projectName')">{{ err }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="projectcode" class="col-form-label">Project Code</label>
+                        <input id="projectcode" formControlName="projectCode" type="text"
+                               class="form-control" placeholder="Project code" readonly>
+                        <div *ngIf="projectForm.get('projectCode')?.invalid && projectForm.get('projectCode')?.touched" class="invalid-feedback">
+                          <ul>
+                            <li *ngFor="let err of getFormErrors('projectCode')">{{ err }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Assigned Manager</label>
+                        <select formControlName="assignedManager" class="custom-select">
+                          <option *ngFor="let manager of managers" [ngValue]="manager">
+                            {{ manager.firstName + ' ' + manager.lastName }}
+                          </option>
+                        </select>
+                        <div *ngIf="projectForm.get('assignedManager')?.invalid && projectForm.get('assignedManager')?.touched" class="invalid-feedback">
+                          <ul>
+                            <li *ngFor="let err of getFormErrors('assignedManager')">{{ err }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="startdate">Project Start Date</label>
+                        <input id="startdate" formControlName="startDate" type="date"
+                               class="form-control">
+                        <div *ngIf="projectForm.get('startDate')?.invalid && projectForm.get('startDate')?.touched" class="invalid-feedback">
+                          <ul>
+                            <li *ngFor="let err of getFormErrors('startDate')">{{ err }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="enddate">Project End Date</label>
+                        <input id="enddate" formControlName="endDate" type="date"
+                               class="form-control">
+                        <div *ngIf="projectForm.get('endDate')?.invalid && projectForm.get('endDate')?.touched" class="invalid-feedback">
+                          <ul>
+                            <li *ngFor="let err of getFormErrors('endDate')">{{ err }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="projectdetail">Project Detail</label>
+                        <textarea id="projectdetail" formControlName="projectDetail"
+                                  class="form-control"
+                                  placeholder="Project detail"></textarea>
+                        <div *ngIf="projectForm.get('projectDetail')?.invalid && projectForm.get('projectDetail')?.touched" class="invalid-feedback">
+                          <ul>
+                            <li *ngFor="let err of getFormErrors('projectDetail')">{{ err }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="float-right">
+                        <button class="btn btn-success rounded-0" type="submit" [disabled]="projectForm.invalid">Save</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <!-- ------------------------FORM END----------------------------- -->
+
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
