@@ -52,6 +52,8 @@ public class ProductServiceImpl implements ProductService  {
       .toList();
   }
 
+
+
   @Override
   public List<ProductDto> getProductsByCompanyId(Long companyId) {
     return productRepository.findProductsByCategory_CompanyId(companyId)
@@ -76,8 +78,7 @@ public class ProductServiceImpl implements ProductService  {
 
   @Override
   public boolean productNameIsExist(ProductDto productDto) {
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-    return productRepository.findByNameAndInsertUserId(productDto.name(),companyId).isPresent();
+    return true;
   }
 
   @Override
@@ -99,10 +100,15 @@ public class ProductServiceImpl implements ProductService  {
 
   @Override
   public void deleteProductById(Long id) {
-    if (!invoiceProductService.productHasInvoice(id) && getProductById(id).quantityInStock()==0){
+    if ( getProductById(id).quantityInStock()==0){
       Product product = productRepository.findById(id).get();
       product.setIsDeleted(true);
       productRepository.save(product);
     }
+  }
+
+  @Override
+  public ProductDto getProductByName(String name) {
+    return productDtoMapper.apply(productRepository.findByName(name));
   }
 }

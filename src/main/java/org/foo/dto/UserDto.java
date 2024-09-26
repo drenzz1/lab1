@@ -1,14 +1,39 @@
 package org.foo.dto;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.foo.enums.Gender;
 
-public record UserDto(Long id ,
-                      String username ,
-                      String password,
-                      String firstName,
-                      String lastName,
-                      String phone,
-                      RoleDto roleDto,
-                      CompanyDto companyDto
-                      ) {
+
+@Setter
+@Getter
+@AllArgsConstructor
+public class  UserDto {
+
+
+  private Long id;
+
+
+  private String firstName;
+
+
+  private String lastName;
+
+
+  private String userName;
+
+  private String passWord;
+
+  private String phone;
+
+
+  private RoleDto role;
+
+
+  private Gender gender;
+
+
+
+
 }

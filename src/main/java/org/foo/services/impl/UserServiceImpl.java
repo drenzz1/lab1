@@ -1,17 +1,21 @@
 package org.foo.services.impl;
 
+import org.foo.dto.ProjectDto;
+import org.foo.dto.TaskDto;
 import org.foo.dto.UserDto;
 import org.foo.mapper.UserDtoMapper;
-import org.foo.models.Company;
 import org.foo.models.Role;
 import org.foo.models.User;
-import org.foo.repository.CompanyRepository;
 import org.foo.repository.RoleRepository;
 import org.foo.repository.UserRepository;
-import org.foo.services.SecurityService;
+import org.foo.services.ProjectService;
+import org.foo.services.TaskService;
 import org.foo.services.UserService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.net.PasswordAuthentication;
 import java.util.List;
 
 @Service
@@ -19,106 +23,99 @@ public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
   private final UserDtoMapper userDtoMapper;
   private final RoleRepository roleRepository;
-  private final SecurityService securityService;
-  private final CompanyRepository companyRepository;
+  private final ProjectService projectService;
+  private final TaskService taskService;
+  private final PasswordEncoder passwordEncoder;
 
-
-  public UserServiceImpl(UserRepository userRepository, UserDtoMapper userDtoMapper, RoleRepository roleRepository, SecurityService securityService, CompanyRepository companyRepository) {
+  public UserServiceImpl(UserRepository userRepository, UserDtoMapper userDtoMapper, RoleRepository roleRepository,@Lazy ProjectService projectService, @Lazy TaskService taskService, PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.userDtoMapper = userDtoMapper;
     this.roleRepository = roleRepository;
-    this.securityService = securityService;
-    this.companyRepository = companyRepository;
+    this.projectService = projectService;
+    this.taskService = taskService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Override
   public List<UserDto> listAllUsers() {
-    UserDto loggedInUser =securityService.getLoggedInUser();
+    return  userRepository.findAll().stream().map(userDtoMapper).toList();
 
-    if (loggedInUser.roleDto().description().contains("Root")){
-      return userRepository.findAll()
-        .stream().filter(user -> user.getRole().getDescription().contains("Admin"))
-        .map(userDtoMapper)
-        .toList();
-
-    }else{
-      Company company =  companyRepository.findById(securityService.getLoggedInUser().companyDto().id()).get();
-
-      return userRepository.findAllByCompany(company).stream().filter(user -> !user.getIsDeleted())
-        .map(userDtoMapper).toList();
-    }
   }
 
   @Override
   public UserDto findByUsername(String username) {
-    return userDtoMapper.apply(userRepository.findByUsername(username).get());
+    return userDtoMapper.apply(userRepository.findByUserName(username).get());
+
   }
 
   @Override
-  public boolean checkForAdminRole(String username) {
-    User user = userRepository.findByUsername(username).get();
+  public void save(UserDto userDTO) {
+    Role role = roleRepository.findRoleById(userDTO.getRole().id());
 
-    return user!= null && user.getRole()!=null && user.getRole().getDescription().equals("Admin");
-  }
-
-  @Override
-  public void save(UserDto dto) {
-    Role roleRepository1 = roleRepository.findById(dto.roleDto().id()).get();
-    Company company = companyRepository.findById(dto.companyDto().id()).get();
-
-
-    User user = new User(dto.username(), dto.password(),dto.firstName(), dto.lastName(), dto.phone(),roleRepository1,company);
-
+    User user = new User(userDTO.getFirstName(),userDTO.getLastName(),userDTO.getUserName() , passwordEncoder.encode(userDTO.getPassWord()),true,userDTO.getPhone(),role,userDTO.getGender());
     userRepository.save(user);
-
   }
 
   @Override
-  public void update(Long id ,UserDto dto) {
-    Role roleRepository1 = roleRepository.findById(dto.roleDto().id()).get();
-    Company company = companyRepository.findById(dto.companyDto().id()).get();
+  public UserDto update(Long id , UserDto userDTO) {
 
-    userRepository.findById(id).ifPresent(user -> {
-      user.setRole(roleRepository1);
-      user.setPhone(dto.phone());
-      user.setFirstname(dto.firstName());
-      user.setPassword(dto.password());
-      user.setCompany(company);
+    userRepository.findById(id).ifPresent(user1 -> {
+      user1.setFirstName(userDTO.getFirstName());
+      user1.setLastName(userDTO.getLastName());
+      user1.setUserName(userDTO.getUserName());
+      user1.setPassWord(passwordEncoder.encode(userDTO.getPassWord()));
 
-
-      userRepository.save(user);
+      user1.setEnabled(true);
+      user1.setPhone(userDTO.getPhone());
+      user1.setGender(userDTO.getGender());
+      userRepository.save(user1);
     });
+    return userDtoMapper.apply( userRepository.findById(id).get());
+  }
 
+  @Override
+  public void deleteByUsername(String username) {
+    userRepository.deleteByUserName(username);
 
   }
 
   @Override
-  public void deleteByUserName(String username) {
+  public void delete(Long  username) {
+
+    User user = userRepository.findById(username).get();
+    if (checkIfUserCanBeDeleted(user)){
+      user.setIsDeleted(true);
+      user.setUserName(user.getUserName() + " -" + user.getId());
+      userRepository.save(user);
+    }
 
   }
-
-  @Override
-  public void delete(String username) {
-    User user = userRepository.findByUsername(username).get();
-    user.setIsDeleted(true);
-    userRepository.save(user);
+  private boolean checkIfUserCanBeDeleted(User user ){
+    return switch (user.getRole().getDescription()) {
+      case "Manager" -> {
+        List<ProjectDto> projectDTOList = projectService.readAllByAssignedManager(user);
+        yield projectDTOList.isEmpty();
+      }
+      case "Employee" -> {
+        List<TaskDto> taskDTOList = taskService.readAllByAssignedEmployee(user);
+        yield taskDTOList.isEmpty();
+      }
+      default -> true;
+    };
   }
 
   @Override
   public List<UserDto> listAllByRole(String role) {
-    return userRepository.findAllByRoleDescriptionIgnoreCase(role).stream().map(userDtoMapper).toList();
-  }
 
-  @Override
-  public void deleteById(Long id) {
-    User user = userRepository.findById(id).get();
-    user.setIsDeleted(true);
-    userRepository.save(user);
+
+
+    return userRepository.findByRoleDescription(role).stream().map(userDtoMapper).toList();
+
 
   }
 
   @Override
-  public UserDto findById(Long id) {
-   return userDtoMapper.apply( userRepository.findById(id).get());
+  public UserDto findById(long id) {
+    return userDtoMapper.apply(userRepository.findById(id).get());
   }
 }

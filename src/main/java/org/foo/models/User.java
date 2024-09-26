@@ -2,39 +2,35 @@ package org.foo.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.foo.enums.Gender;
 import org.hibernate.annotations.Where;
 
 import java.util.List;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "users")
 @Where(clause = "is_deleted=false")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
-    @Column(unique = true)
-    private String username;
+  private String firstName;
+  private String lastName;
+  @Column(unique = true,nullable = false)
+  private String userName;
+  private String passWord;
+  private boolean enabled;
+  private String phone;
 
-    private String password;
+  @ManyToOne
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-    private String firstname;
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
 
-    private String lastname;
-
-    private String phone;
-
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-     private Role role;
-
-    @ManyToOne
-    private Company company;
 
 }

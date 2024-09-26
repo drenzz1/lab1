@@ -51,13 +51,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     if(authentication.isAuthenticated()){
       String userName = authenticationRequest.username();
-      User principal = userRepository.findByUsername(userName).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + userName));
+      User principal = userRepository.findByUserName(userName).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + userName));
       // Convert User to UserDto
       UserDto userDto = userDtoMapper.apply(principal);
 
       // Issue tokens
-      String token = jwtUtil.issueToken(userDto.username(), userDto.roleDto().description());
-      String refreshToken = jwtUtil.generateRefreshToken(userDto.username());
+      String token = jwtUtil.issueToken(userDto.getUserName(), userDto.getRole().description());
+      String refreshToken = jwtUtil.generateRefreshToken(userDto.getUserName());
 
       // Return response
       return new AuthenticationResponse(token, refreshToken);

@@ -1,7 +1,6 @@
 package org.foo.mapper;
 
 import org.foo.dto.InvoiceProductDto;
-import org.foo.models.Invoice;
 import org.foo.models.InvoiceProduct;
 import org.springframework.stereotype.Component;
 

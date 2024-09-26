@@ -12,12 +12,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-  Optional<User> findByUsername(String username);
+  Optional<User> findByUserName(String username);
   @Transactional
-  void deleteByUsername(String username);
-
-  List<User> findAllByRoleDescriptionIgnoreCase(String description);
-
-  List<User> findAllByCompany(Company actualCompany);
+  void deleteByUserName(String username);
+  List<User>findByRoleDescription(String description);
 
 }

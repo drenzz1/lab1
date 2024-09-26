@@ -8,7 +8,12 @@ public record ClientVendorDto(Long id,
                               String phone,
                               String website,
                               ClientVendorType clientVendorType,
-                              Address addressDto,
+                              String addressLine1,
+                              String addressLine2,
+                              String city,
+                              String state,
+                              String country,
+                              String zipCode,
                               CompanyDto companyDto
                               ) {
 }

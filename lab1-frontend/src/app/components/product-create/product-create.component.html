@@ -1,1 +1,115 @@
-<p>product-create works!</p>
+<div class="home">
+  <div class="dashboard-wrapper">
+    <div class="dashboard-ecommerce">
+      <div class="container-fluid dashboard-content">
+        <div class="ecommerce-widget">
+          <header class="panel-heading text-center">
+            <h3 class="panel-title">Create New Product</h3>
+          </header>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="tab-pane fade mt-2 show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Category</label>
+                                <select id="category" formControlName="category" class="custom-select">
+                                  <option value="">Select</option>
+                                  <option *ngFor="let category of categories" [value]="category.id">
+                                    {{ category.description }}
+                                  </option>
+                                </select>
+                                <div *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('category')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" formControlName="name" placeholder="Name" class="form-control">
+                                <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('name')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Low Limit Alert</label>
+                                <input type="number" formControlName="lowLimitAlert" placeholder="Low Limit Alert" class="form-control">
+                                <div *ngIf="productForm.get('lowLimitAlert')?.invalid && productForm.get('lowLimitAlert')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('lowLimitAlert')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Quantity In Stock</label>
+                                <input type="number" formControlName="quantityInStock" placeholder="Quantity In Stock " class="form-control">
+                                <div *ngIf="productForm.get('quantityInStock')?.invalid && productForm.get('quantityInStock')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('quantityInStock')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Product Unit</label>
+                                <select formControlName="productUnit" class="custom-select">
+                                  <option value="">Select</option>
+                                  <option *ngFor="let unit of productUnits" [value]="unit">
+                                    {{ unit }}
+                                  </option>
+                                </select>
+                                <div *ngIf="productForm.get('productUnit')?.invalid && productForm.get('productUnit')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('productUnit')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                            <button class="btn btn-success mb-2 mb-sm-0 mr-sm-2" type="submit" [disabled]="productForm.invalid">
+                              Save
+                            </button>
+                            <button class="btn btn-danger mb-2 mb-sm-0 mr-sm-2" type="reset" (click)="onReset()">
+                              Reset
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-group row justify-content-end">
+            <div class="col-auto">
+              <a id="productListLink" class="btn bg-dark text-light mb-1" [routerLink]="['/products/list']">
+                <i class="fa fa-list mr-1"></i>Product List
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

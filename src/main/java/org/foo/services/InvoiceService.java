@@ -6,22 +6,29 @@ import org.foo.enums.InvoiceType;
 import java.util.List;
 
 public interface InvoiceService {
-  List<InvoiceDto> getInvoicesForCompany(InvoiceType invoiceType);
+  InvoiceDto findById(Long id);
+  InvoiceDto save(InvoiceDto invoiceDto, InvoiceType purchase);
+  InvoiceDto update(InvoiceDto invoiceDto, long id);
+  void delete(Long id);
 
-  InvoiceDto findInvoiceById(Long id);
+  List<InvoiceDto> findAllInvoicesByCompany();
 
-  void deleteById(Long id);
+  void approveInvoice(Long id);
 
-  void approveById(Long id);
+  String assignNextPurchaseInvoiceNumberByCompany(String companyTitle);
 
-  InvoiceDto createNewInvoice(InvoiceType invoiceType);
-  int getNumberOfInvoicesForCompany(InvoiceType invoiceType);
+  InvoiceDto getNewInvoice(InvoiceType invoiceType, String companyTitle);
 
-  InvoiceDto save(InvoiceDto invoiceDto, InvoiceType invoiceType);
+  String generateSaleInvoiceNo(String company);
+  List<InvoiceDto> findAllSaleInvoicesByCompany(String company);
 
-  void updateInvoice(InvoiceDto invoiceDto, Long invoiceId);
+  List<InvoiceDto> findAllPurchaseInvoicesByCompany(String companyTitle);
 
-  void updateProductQuantityInStock(InvoiceDto invoice);
+  void updatePurchaseInvoiceVendor(InvoiceDto invoiceDto);
 
-  List<InvoiceDto> getLast3InvoicesForCompany();
+  List<InvoiceDto> fetchAllApprovedPurchaseInvoicesOfCompany(String companyTitle);
+
+  List<InvoiceDto> fetchAllApprovedSalesInvoicesOfCompany(String companyTitle);
+
+  List<InvoiceDto> lastThreeApprovedInvoicesOfCompany(String companyTitle);
 }

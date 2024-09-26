@@ -7,16 +7,11 @@ import java.util.List;
 public interface UserService {
   List<UserDto> listAllUsers();
   UserDto findByUsername(String username);
+  void save(UserDto userDTO);
+  UserDto update(Long id ,UserDto userDTO);
+  void deleteByUsername(String username);
+  void delete(Long  username);
+  List<UserDto>listAllByRole(String role);
 
-  boolean checkForAdminRole(String username);
-
-  void save(UserDto dto);
-  void update(Long id ,UserDto dto);
-  void deleteByUserName(String username);
-  void delete(String username);
-  List<UserDto> listAllByRole(String role);
-
-  void deleteById(Long id);
-
-  UserDto findById(Long id);
+  UserDto findById(long id);
 }

@@ -1,0 +1,142 @@
+<div class="home">
+
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <section class="panel panel-transparent">
+              <header class="panel-heading">
+                <h2 class="panel-title">Task Create</h2>
+              </header>
+              <div class="panel-body">
+                <!-- ------------------------FORM START----------------------------- -->
+                <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Project</label>
+                        <select formControlName="project" class="custom-select">
+                          <option value="" disabled>Select</option>
+                          <option *ngFor="let project of projects"
+                                  [ngValue]="project">
+                            {{ project.projectName }}
+                          </option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="taskForm.get('project')?.invalid && (taskForm.get('project')?.touched || taskForm.get('project')?.dirty)">
+                          <ul>
+                            <li *ngFor="let error of getFieldErrors('project')">{{ error }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>Assigned Employee</label>
+                        <select formControlName="assignedEmployee" class="custom-select">
+                          <option value="" disabled>Select</option>
+                          <option *ngFor="let employee of employees"
+                                  [ngValue]="employee">
+                            {{ employee.firstName + ' ' + employee.lastName }}
+                          </option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="taskForm.get('assignedEmployee')?.invalid && (taskForm.get('assignedEmployee')?.touched || taskForm.get('assignedEmployee')?.dirty)">
+                          <ul>
+                            <li *ngFor="let error of getFieldErrors('assignedEmployee')">{{ error }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="tasksubject" class="col-form-label">Task Subject</label>
+                        <input id="tasksubject" formControlName="taskSubject" type="text" class="form-control" placeholder="task subject">
+                        <div class="invalid-feedback" *ngIf="taskForm.get('taskSubject')?.invalid && (taskForm.get('taskSubject')?.touched || taskForm.get('taskSubject')?.dirty)">
+                          <ul>
+                            <li *ngFor="let error of getFieldErrors('taskSubject')">{{ error }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="taskdetail">Task Detail</label>
+                        <textarea id="taskdetail" formControlName="taskDetail" class="form-control" placeholder="task detail"></textarea>
+                        <div class="invalid-feedback" *ngIf="taskForm.get('taskDetail')?.invalid && (taskForm.get('taskDetail')?.touched || taskForm.get('taskDetail')?.dirty)">
+                          <ul>
+                            <li *ngFor="let error of getFieldErrors('taskDetail')">{{ error }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <div class="float-right">
+                        <button class="btn btn-success rounded-0" type="submit" [disabled]="taskForm.invalid">Save</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <!-- ------------------------FORM END----------------------------- -->
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- ------------------------TABLE START----------------------------- -->
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="col-md-12">
+            <section class="panel">
+              <header class="panel-heading">
+                <h2 class="panel-title">Task List</h2>
+              </header>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th scope="col">Project</th>
+                      <th scope="col">Task Subject</th>
+                      <th scope="col">Assigned Employee</th>
+                      <th scope="col">Assigned Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let task of tasks">
+                      <td>{{ task.project.projectCode + '-' + task.project.projectName }}</td>
+                      <td>{{ task.taskSubject }}</td>
+                      <td>{{ task.assignedEmployee.firstName + ' ' + task.assignedEmployee.lastName }}</td>
+                      <td>{{ (task.assignedDate | date:'MM/dd/yyyy') }}</td>
+                      <td>{{ task.taskStatus }}</td>
+                      <td>
+                        <a *ngIf="task.taskStatus !== 'Completed'"
+                           class="btn btn-warning rounded-0"
+                           [routerLink]="['/task/update', task.id]">Update</a>
+                        <a *ngIf="task.taskStatus === 'Completed'"
+                           class="btn btn-warning rounded-0 disabled-button">Update</a>
+                        <a [routerLink]="['/task/delete', task.id]"
+                           class="btn btn-danger rounded-0">Delete</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <!-- ------------------------TABLE END----------------------------- -->
+

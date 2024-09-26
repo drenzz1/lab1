@@ -1,15 +1,32 @@
 package org.foo.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
-public record InvoiceProductDto(Long id,
-                                Integer quantity,
-                                BigDecimal price,
-                                Integer tax,
-                                BigDecimal total,
-                                BigDecimal profitLoss,
-                                Integer remainingQuantity,
-                                InvoiceDto invoiceDto,
-                                ProductDto productDto
-                                ) {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class InvoiceProductDto {
+
+  private Long id;
+
+  private Integer quantity;
+
+  private BigDecimal price;
+
+  private Integer tax;
+
+  private BigDecimal total;
+  private BigDecimal profitLoss;
+  private int remainingQuantity;
+
+  private InvoiceDto invoice;
+
+  private ProductDto product;
+
 }

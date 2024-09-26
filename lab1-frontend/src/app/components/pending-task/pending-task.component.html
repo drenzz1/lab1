@@ -1,0 +1,41 @@
+<div class="home">
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <div class="col-md-12">
+      <section class="panel">
+        <header class="panel-heading">
+          <h2 class="panel-title">Task List</h2>
+        </header>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Task Subject</th>
+                <th scope="col">Assigned Employee</th>
+                <th scope="col">Assigned Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let task of tasks">
+                <td>{{ task.project.projectCode + '-' + task.project.projectName }}</td>
+                <td>{{ task.taskSubject }}</td>
+                <td>{{ task.assignedEmployee.firstName + ' ' + task.assignedEmployee.lastName }}</td>
+                <td>{{ task.assignedDate | date:'MM/dd/yyyy' }}</td>
+                <td>{{ task.taskStatus }}</td>
+                <td>
+                  <a [routerLink]="['/task/employee/edit', task.id]" class="btn btn-warning rounded-0">Update</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</div>

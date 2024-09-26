@@ -21,6 +21,13 @@ public class ClientVendorMapper implements Function<ClientVendor, ClientVendorDt
   public ClientVendorDto apply(ClientVendor clientVendor) {
     CompanyDto companyDto= companyDtoMapper.apply(clientVendor.getCompany());
 
-    return new ClientVendorDto(clientVendor.getId(), clientVendor.getClientVendorName(), clientVendor.getPhone(), clientVendor.getWebsite(), clientVendor.getClientVendorType(),clientVendor.getAddress(),companyDto);
+    return new ClientVendorDto(clientVendor.getId(), clientVendor.getClientVendorName(), clientVendor.getPhone(), clientVendor.getWebsite(), clientVendor.getClientVendorType(),
+      clientVendor.getAddressLine1(),
+      clientVendor.getAddressLine2(),
+      clientVendor.getCity(),
+      clientVendor.getState(),
+      clientVendor.getCountry(),
+      clientVendor.getZipCode(),
+      companyDto);
   }
 }

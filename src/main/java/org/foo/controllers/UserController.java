@@ -32,8 +32,14 @@ private final CompanyService companyService;
   public List<UserDto> getAllUsers(){
     return userService.listAllUsers();
   }
+
+  @GetMapping("/list/{id}")
+  public UserDto getUserById(@PathVariable long id){
+    return userService.findById(id);
+  }
   @PostMapping("/create")
   public ResponseEntity<String> createUser(@RequestBody UserDto userDto){
+    System.out.println(userDto.toString());
     userService.save(userDto);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
@@ -42,14 +48,19 @@ private final CompanyService companyService;
     return roleService.listAllRoles();
   }
   @PutMapping("/edit/{id}")
-  public ResponseEntity<String> editUser(@PathVariable("id")Long id , UserDto userDto){
+  public void editUser(@PathVariable("id")Long id ,@RequestBody UserDto userDto){
     userService.update(id,userDto);
-    return ResponseEntity.status(HttpStatus.OK).build();
   }
   @DeleteMapping("/delete/{id}")
   public ResponseEntity<String> deleteUser(@PathVariable("id")Long id){
-    userService.deleteById(id);
+    userService.delete(id);
     return ResponseEntity.status(HttpStatus.OK).build();
 
+  }
+
+  @GetMapping("/list-by-role")
+  public List<UserDto> listUsersByRole(@RequestParam("role")String role){
+
+    return userService.listAllByRole(role);
   }
 }

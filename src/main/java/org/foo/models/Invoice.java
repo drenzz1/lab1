@@ -22,27 +22,26 @@ import java.util.List;
 @Where(clause = "is_deleted=false")
 public class Invoice extends BaseEntity{
 
-    private String invoiceNo;
 
-    @Enumerated(EnumType.STRING)
-    private InvoiceStatus invoiceStatus;
+  private String invoiceNo;
 
-    @Enumerated(EnumType.STRING)
-    private InvoiceType invoiceType;
+  @Enumerated(EnumType.STRING)
+  private InvoiceStatus invoiceStatus;
 
-    private LocalDate date;
+  @Enumerated(EnumType.STRING)
+  private InvoiceType invoiceType;
 
-    @ManyToOne
-    private Company company;
+  private LocalDate date;
 
-    @ManyToOne
-    private ClientVendor clientVendor;
+  @ManyToOne
+  private Company company;
 
-     private BigDecimal price;
+  @ManyToOne
+  private ClientVendor clientVendor;
 
-     private BigDecimal tax;
+  @OneToMany(mappedBy = "invoice")
+  private List<InvoiceProduct> invoiceProducts;
 
-     private BigDecimal total;
 
 
 }

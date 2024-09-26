@@ -7,7 +7,6 @@ import org.foo.services.ProductService;
 import org.foo.services.SecurityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +28,7 @@ public class ProductController {
 
   @GetMapping("/list")
   public List<ProductDto> getProducts(){
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-    return productService.getProductsByCompanyId(companyId);
+    return null;
   }
 
   @PostMapping("/create")
@@ -59,7 +57,7 @@ public class ProductController {
 
   @DeleteMapping("/delete/{id}")
   public ResponseEntity<String> deleteProduct(@PathVariable("id")Long id ){
-    if (!invoiceProductService.productHasInvoice(id) ||productService.getProductById(id).quantityInStock()>0){
+    if (productService.getProductById(id).quantityInStock()>0){
       productService.deleteProductById(id);
     }
     return ResponseEntity.status(HttpStatus.OK).build();

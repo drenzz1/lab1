@@ -1,1 +1,166 @@
-<p>client-vendor-create works!</p>
+<div class="home">
+
+  <div class="dashboard-wrapper">
+    <div class="dashboard-ecommerce">
+      <div class="container-fluid dashboard-content">
+        <div class="ecommerce-widget">
+          <header class="panel-heading text-center">
+            <h3 class="panel-title">Create New Client/Vendor</h3>
+          </header>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                        <form [formGroup]="clientVendorForm" (ngSubmit)="onSubmit()">
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Client/Vendor Name</label>
+                                <input type="text" formControlName="clientVendorName" placeholder="Client/Vendor Name" class="form-control">
+                                <div *ngIf="clientVendorForm.get('clientVendorName')?.invalid && clientVendorForm.get('clientVendorName')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('clientVendorName')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Type</label>
+                                <select id="clientVendorType" formControlName="clientVendorType" class="form-control">
+                                  <option *ngIf="clientVendorTypes.length > 1" value="">Select</option>
+                                  <option *ngFor="let type of clientVendorTypes" [value]="type">{{ type }}</option>
+                                </select>
+                                <div *ngIf="clientVendorForm.get('clientVendorType')?.invalid && clientVendorForm.get('clientVendorType')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('clientVendorType')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" formControlName="phone" placeholder="Phone" class="form-control">
+                                <div *ngIf="clientVendorForm.get('phone')?.invalid && clientVendorForm.get('phone')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('phone')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Website</label>
+                                <input type="text" formControlName="website" placeholder="Website" class="form-control">
+                                <div *ngIf="clientVendorForm.get('website')?.invalid && clientVendorForm.get('website')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('website')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" formControlName="addressLine1" placeholder="Address" class="form-control">
+                                <div *ngIf="clientVendorForm.get('addressLine1')?.invalid && clientVendorForm.get('address.addressLine1')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('address.addressLine1')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" formControlName="addressLine2" placeholder="Address" class="form-control">
+                                <div *ngIf="clientVendorForm.get('addressLine2')?.invalid && clientVendorForm.get('address.addressLine2')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('address.addressLine2')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>City</label>
+                                <input type="text" formControlName="city" placeholder="City" class="form-control">
+                                <div *ngIf="clientVendorForm.get('city')?.invalid && clientVendorForm.get('city')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('city')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Zip Code</label>
+                                <input type="text" formControlName="zipCode" placeholder="Zip Code" class="form-control">
+                                <div *ngIf="clientVendorForm.get('zipCode')?.invalid && clientVendorForm.get('zipCode')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('address.zipCode')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row justify-content-center">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>State</label>
+                                <input type="text" formControlName="state" placeholder="State" class="form-control">
+                                <div *ngIf="clientVendorForm.get('state')?.invalid && clientVendorForm.get('state')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('state')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" formControlName="country" placeholder="Country" class="form-control">
+                                <div *ngIf="clientVendorForm.get('country')?.invalid && clientVendorForm.get('country')?.touched">
+                                  <ul>
+                                    <li class="validation" *ngFor="let error of getErrors('country')">{{ error }}</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                            <button class="btn btn-success mb-2 mb-sm-0 mr-sm-2" type="submit" [disabled]="clientVendorForm.invalid">Save</button>
+                            <button class="btn btn-danger mb-2 mb-sm-0 mr-sm-2" type="reset" (click)="onReset()">Reset</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-group row justify-content-end">
+            <div class="col-auto">
+              <a id="companylistlink" class="btn bg-dark text-light mb-1" [routerLink]="['/clientVendors/list']">
+                <i class="fa fa-list mr-1"></i>Client/Vendor List
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

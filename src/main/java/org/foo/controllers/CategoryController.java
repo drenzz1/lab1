@@ -24,7 +24,7 @@ public class CategoryController {
     return categoryService.getAllCategories();
   }
 
-  @PostMapping
+  @PostMapping("/create")
   public ResponseEntity<String> createCategory(@RequestBody CategoryDto categoryDto){
     categoryService.save(categoryDto);
     return ResponseEntity.status(HttpStatus.OK).build();

@@ -25,7 +25,7 @@ public class CustomerUserDetailsService implements UserDetailsService, SecurityS
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByUsername(username).get();
+    User user = userRepository.findByUserName(username).get();
     if (user ==null){
       throw new UsernameNotFoundException("This user does not exists");
     }
@@ -37,6 +37,6 @@ public class CustomerUserDetailsService implements UserDetailsService, SecurityS
   @Override
   public UserDto getLoggedInUser() {
     String username = SecurityContextHolder.getContext().getAuthentication().getName();
-    return userDtoMapper.apply(userRepository.findByUsername(username).get());
+    return userDtoMapper.apply(userRepository.findByUserName(username).get());
   }
 }

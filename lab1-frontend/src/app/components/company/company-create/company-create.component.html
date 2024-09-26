@@ -1,1 +1,192 @@
-<p>company-create works!</p>
+<div class="home">
+  <div class="dashboard-wrapper">
+    <div class="dashboard-ecommerce">
+      <div class="container-fluid dashboard-content">
+        <div class="ecommerce-widget">
+          <header class="panel-heading text-center">
+            <h3 class="panel-title">Create New Company</h3>
+          </header>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="tab-pane fade mt-2 show active" id="account" role="tabpanel"
+                           aria-labelledby="account-tab">
+                        <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+                          <div class="row">
+                            <div class="col-12 col-md-8">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>Title</label>
+                                  <input type="text" formControlName="title"
+                                         placeholder="Title"
+                                         class="form-control">
+                                  <div *ngIf="title?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">Title is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>Phone</label>
+                                  <input type="text" formControlName="phone"
+                                         placeholder="Phone"
+                                         class="form-control">
+                                  <div *ngIf="phone?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">Phone is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>Website</label>
+                                  <input type="text" formControlName="website"
+                                         placeholder="Website"
+                                         class="form-control">
+                                  <div *ngIf="website?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">Website is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>Address Line 1</label>
+                                  <input type="text" formControlName="addressLine1"
+                                         placeholder="Address Line 1"
+                                         class="form-control">
+                                  <div *ngIf="addressLine1?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">Address Line 1 is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>Address Line 2</label>
+                                  <input type="text" formControlName="addressLine2"
+                                         placeholder="Address Line 2"
+                                         class="form-control">
+                                  <div *ngIf="addressLine2?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">Address Line 2 is required</li>
+                                    </ul>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>City</label>
+                                  <input type="text" formControlName="city"
+                                         placeholder="City"
+                                         class="form-control">
+                                  <div *ngIf="city?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">City is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>Zip Code</label>
+                                  <input type="text" formControlName="zipCode"
+                                         placeholder="Zip Code"
+                                         class="form-control">
+                                  <div *ngIf="zipCode?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">Zip Code is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>State</label>
+                                  <input type="text" formControlName="state"
+                                         placeholder="State"
+                                         class="form-control">
+                                  <div *ngIf="state?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">State is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                              <div class="form-group">
+                                <div class="controls">
+                                  <label>Country</label>
+                                  <input type="text" formControlName="country"
+                                         placeholder="Country"
+                                         class="form-control">
+                                  <div *ngIf="country?.errors?.['required']">
+                                    <ul>
+                                      <li class="validation">Country is required</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                            <button class="btn btn-success mb-2 mb-sm-0 mr-sm-2"
+                                    type="submit">Save
+                            </button>
+                            <button class="btn btn-danger mb-2 mb-sm-0 mr-sm-2"
+                                    type="button" (click)="onReset()">Reset
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-group row justify-content-end">
+              <div class="col-auto">
+                <a id="companylistlink" class="btn bg-dark text-light mb-1" routerLink="/companies/list">
+                  <i class="fa fa-list mr-1"></i>Company List
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

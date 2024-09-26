@@ -20,4 +20,6 @@ public interface ProductService {
   void updateProduct(Long id , ProductDto productDto);
 
   void deleteProductById(Long id);
+
+  ProductDto getProductByName(String name);
 }

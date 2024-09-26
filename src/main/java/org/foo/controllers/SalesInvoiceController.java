@@ -20,18 +20,20 @@ public class SalesInvoiceController {
   private final ClientVendorService clientVendorService;
   private final ProductService productService;
   private final CompanyService companyService;
+  private final SecurityService securityService;
 
-  public SalesInvoiceController(InvoiceService invoiceService, InvoiceProductService invoiceProductService, ClientVendorService clientVendorService, ProductService productService, CompanyService companyService) {
+  public SalesInvoiceController(InvoiceService invoiceService, InvoiceProductService invoiceProductService, ClientVendorService clientVendorService, ProductService productService, CompanyService companyService, SecurityService securityService) {
     this.invoiceService = invoiceService;
     this.invoiceProductService = invoiceProductService;
     this.clientVendorService = clientVendorService;
     this.productService = productService;
     this.companyService = companyService;
+    this.securityService = securityService;
   }
 
   @GetMapping("/create")
   public ResponseEntity<String> createNewInvoice(){
-    invoiceService.createNewInvoice(InvoiceType.SALES);
+
     return ResponseEntity.status(HttpStatus.OK).build();
 
   }

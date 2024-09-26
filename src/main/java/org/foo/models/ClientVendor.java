@@ -24,11 +24,26 @@ public class ClientVendor extends BaseEntity{
 
     private String website;
 
+  private String addressLine1;
+
+  private String addressLine2;
+
+
+  private String city;
+
+
+  private String state;
+
+
+  private String country;
+
+
+  private String zipCode;
+
     @Enumerated(EnumType.STRING)
     private ClientVendorType clientVendorType;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Address address;
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -67,7 +67,7 @@ export class HomePageComponent implements OnInit{
             const role = payload.scopes;
 
 
-            if (role[0] === 'Admin' || role[0] === 'ADMIN_CLUB') {
+            if (role[0] === 'Admin' || role[0] === 'Manager' || role[0] === 'Employee') {
               this.authService.setTokens(res.accessToken, res.refreshToken);
               this.router.navigateByUrl("/layout");
               // this.sharedNotificationService.readNotificationsFromWebSocket();

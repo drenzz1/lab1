@@ -40,32 +40,16 @@ public class ClientVendorServiceImpl implements ClientVendorService {
 
   @Override
   public List<ClientVendorDto> listAllClientVendors() {
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-    Company company = companyRepository.findById(companyId).get();
-
-    return clientVendorRepository.findAllByCompany(company).stream()
-      .map(clientVendorDtoMapper).toList();
+    return null;
   }
 
   @Override
   public List<ClientVendorDto> listClientVendorsForCompany(ClientVendorType clientVendorType) {
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-
-    return listAllClientVendors().stream()
-      .filter(clientVendorDto -> clientVendorDto.companyDto().id().equals(companyId))
-      .filter(clientVendorDto -> clientVendorDto.clientVendorType().equals(clientVendorType))
-      .collect(Collectors.toList());
-
+return null;
   }
 
   @Override
   public void save(ClientVendorDto clientVendorDto) throws ClientVendorNotFoundException {
-    Company company = companyRepository.findById(clientVendorDto.companyDto().id()).get();
-
-    ClientVendor clientVendor = new ClientVendor(clientVendorDto.clientVendorName(),clientVendorDto.phone(),clientVendorDto.website(),clientVendorDto.clientVendorType(),clientVendorDto.addressDto(),company);
-
-    clientVendorRepository.save(clientVendor);
-
   }
 
   @Override
@@ -75,7 +59,12 @@ public class ClientVendorServiceImpl implements ClientVendorService {
       clientVendor.setClientVendorType(clientVendorDto.clientVendorType());
       clientVendor.setPhone(clientVendorDto.phone());
       clientVendor.setWebsite(clientVendorDto.website());
-      clientVendor.setAddress(clientVendorDto.addressDto());
+      clientVendor.setAddressLine1(clientVendorDto.addressLine1());
+      clientVendor.setAddressLine2(clientVendorDto.addressLine2());
+      clientVendor.setCity(clientVendorDto.city());
+      clientVendor.setState(clientVendorDto.state());
+      clientVendor.setCountry(clientVendorDto.country());
+      clientVendor.setZipCode(clientVendorDto.zipCode());
       clientVendor.setCompany(companyRepository.findById(clientVendorDto.companyDto().id()).get());
       clientVendorRepository.save(clientVendor);
     });
@@ -97,14 +86,7 @@ public class ClientVendorServiceImpl implements ClientVendorService {
 
   @Override
   public boolean companyNameExists(ClientVendorDto clientVendorDto) throws ClientVendorNotFoundException {
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-    Company company = companyRepository.findById(companyId).get();
-
-    ClientVendor existingClientVendor = clientVendorRepository.findByClientVendorNameAndCompany(clientVendorDto.clientVendorName(), company);
-    if (existingClientVendor == null) return true;
-
-    return !existingClientVendor.getId().equals(clientVendorDto.id());
-
+     return true;
 
   }
 }

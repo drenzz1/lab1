@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 @Component
 public class CompanyDtoMapper implements Function<Company, CompanyDto> {
-  private final AddressDtoMapper addressDtoMapper;
 
   public CompanyDtoMapper(AddressDtoMapper addressDtoMapper) {
-    this.addressDtoMapper = addressDtoMapper;
   }
 
   @Override
@@ -20,7 +18,12 @@ public class CompanyDtoMapper implements Function<Company, CompanyDto> {
       company.getTitle(),
       company.getPhone(),
       company.getWebsite(),
-      company.getAddress(),
+      company.getAddressLine1(),
+      company.getAddressLine2(),
+      company.getCity(),
+      company.getState(),
+      company.getCountry(),
+      company.getZipCode(),
       company.getCompanyStatus());
   }
 }

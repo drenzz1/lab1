@@ -29,26 +29,17 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public List<CategoryDto> getAllCategories() {
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-
-    return categoryRepository.findAll().stream()
-      .filter(category -> category.getCompany().getId().equals(companyId)).map(categoryDtoMapper).toList();
+    return null;
   }
 
   @Override
   public List<String> getCurrentCompanyCategoryDescriptions(CategoryDto categoryDto) {
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-    return categoryRepository.findAll()
-      .stream().filter(category -> category.getCompany().getId().equals(companyId))
-      .map(categoryDtoMapper)
-      .map(CategoryDto::description).toList();
+    return null;
   }
 
   @Override
   public void save(CategoryDto categoryDto) {
-    Company company = companyRepository.findById(categoryDto.companyDto().id()).get();
-    Category category = new Category(categoryDto.description(),company);
-    categoryRepository.save(category);
+
   }
 
   @Override

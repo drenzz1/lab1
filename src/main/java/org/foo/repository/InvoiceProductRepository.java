@@ -18,10 +18,17 @@ public interface InvoiceProductRepository extends JpaRepository<InvoiceProduct, 
 
 
 
-  List<InvoiceProduct> findAllByInvoice_Id(Long id);
+  @Query("SELECT ip FROM InvoiceProduct ip WHERE ip.invoice.company.title = ?1")
+  List<InvoiceProduct> findByCompanyTitle(String companyTitle);
 
-  @Query("select ip from InvoiceProduct ip where ip.invoice.invoiceType = ?1 and ip.product = ?2 and ip.invoice.invoiceStatus = 'APPROVED' order by ip.id")
-  List<InvoiceProduct> findApprovedInvoiceProductsForProduct(InvoiceType type, Product product);
+  @Query("SELECT ip FROM InvoiceProduct ip WHERE  ip.invoice.id = ?1")
+  List<InvoiceProduct> findAllInvoiceProduct(Long invoiceId);
 
-  Optional<InvoiceProduct> findByProduct_Id(Long id);
+  @Query(value = "select ip.product from InvoiceProduct ip where ip.invoice.id = ?1")
+  List<Product> getProductListByInvoiceId(Long id);
+
+  @Query(value = "select ip from InvoiceProduct ip where ip.invoice.id = ?1")
+  List<InvoiceProduct> getInvoiceProductsByInvoiceId(Long id);
+
+  List<InvoiceProduct> findAllByInvoice_InvoiceStatusAndInvoice_Company(InvoiceStatus invoiceStatus, Company company);
 }

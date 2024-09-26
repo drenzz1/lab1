@@ -9,23 +9,16 @@ import java.util.function.Function;
 @Service
 public class UserDtoMapper implements Function<User, UserDto> {
   private final RoleDtoMapper roleDtoMapper;
-  private final CompanyDtoMapper companyDtoMapper;
 
-  public UserDtoMapper(RoleDtoMapper roleDtoMapper, CompanyDtoMapper companyDtoMapper) {
+
+  public UserDtoMapper(RoleDtoMapper roleDtoMapper) {
     this.roleDtoMapper = roleDtoMapper;
-    this.companyDtoMapper = companyDtoMapper;
+
   }
+
 
   @Override
   public UserDto apply(User user) {
-    return new UserDto(user.getId(),
-      user.getUsername(),
-      user.getPassword(),
-      user.getFirstname(),
-      user.getLastname(),
-      user.getPhone(),
-      roleDtoMapper.apply(user.getRole()),
-      companyDtoMapper.apply(user.getCompany())
-      );
+   return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getUserName(),user.getPassWord(),user.getPhone(),roleDtoMapper.apply(user.getRole()),user.getGender());
   }
 }

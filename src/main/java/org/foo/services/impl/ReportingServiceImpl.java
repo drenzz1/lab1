@@ -25,13 +25,6 @@ public class ReportingServiceImpl implements ReportingService {
 
   @Override
   public List<InvoiceProductDto> getAllInvoiceProducts() {
-    Long companyId = securityService.getLoggedInUser().companyDto().id();
-
-    return invoiceProductRepository.findAll()
-      .stream()
-      .filter(invoiceProduct -> invoiceProduct.getInvoice().getCompany().getId().equals(companyId))
-      .map(invoiceProduct -> invoiceDtoMapper.apply(invoiceProduct))
-      .sorted(Comparator.comparing(invoiceProductDto -> invoiceProductDto.invoiceDto().invoiceDate(),Comparator.reverseOrder()))
-      .toList();
+    return null;
   }
 }

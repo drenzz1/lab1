@@ -36,7 +36,8 @@ public class CompanyServiceImpl implements CompanyService {
 
   @Override
   public void save(CompanyDto company) {
-    Company company1 = new Company(company.title(),company.phone(),company.website(),company.companyStatus(),company.addressDto());
+    Company company1 = new Company(company.title(),company.phone(),company.website(),
+      company.addressLine1(),company.addressLine2(),company.city(),company.state(),company.country(),company.zipCode(),company.companyStatus());
 
     companyRepository.save(company1);
   }
@@ -71,7 +72,12 @@ public class CompanyServiceImpl implements CompanyService {
       company.setCompanyStatus(companyDto.companyStatus());
       company.setPhone(companyDto.phone());
       company.setWebsite(companyDto.website());
-      company.setAddress(companyDto.addressDto());
+      company.setAddressLine1(companyDto.addressLine1());
+      company.setAddressLine2(companyDto.addressLine2());
+      company.setCity(companyDto.city());
+      company.setState(companyDto.state());
+      company.setCountry(companyDto.country());
+      company.setZipCode(companyDto.zipCode());
     });
     return null;
   }
@@ -83,6 +89,6 @@ public class CompanyServiceImpl implements CompanyService {
 
   @Override
   public CompanyDto getCompanyDtoByLoggedInUser() {
-    return  securityService.getLoggedInUser().companyDto();
+    return null;
   }
 }
