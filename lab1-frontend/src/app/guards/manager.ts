@@ -19,7 +19,7 @@ export class Manager implements CanActivate {
       if (role === "Manager"){
         return true;
       }
-      return this.router.parseUrl("/");
+      return this.router.parseUrl("/layout");
 
 
       throw new Error("Method not implemented.");

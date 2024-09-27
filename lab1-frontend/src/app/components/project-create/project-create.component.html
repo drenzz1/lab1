@@ -144,19 +144,16 @@
                            class="btn btn-warning rounded-0"
                            (click)="update(project.id)">Update
                         </a>
-                        <a *ngIf="project.projectStatus === 'COMPLETE'"
-                           class="btn btn-secondary-link rounded-0 disabled-button">Update
-                        </a>
-                        <a [routerLink]="['/project/delete', project.projectCode]">
+
+                        <a *ngIf="project.unfinishedTaskCounts == 0"
+                           [routerLink]="['/project/delete', project.projectCode]">
                           <button type="button" class="btn btn-danger rounded-0" (click)="onDelete(project.id)">Delete</button>
                         </a>
                         <a *ngIf="project.unfinishedTaskCounts==0  && project.projectStatus !== 'COMPLETE'"
                            class="btn btn-primary rounded-0" (click)="complete(project.id)"
                            >Complete
                         </a>
-                        <a *ngIf=" project.unfinishedTaskCounts>0  || project.projectStatus === 'COMPLETE'"
-                           class="btn btn-secondary-link rounded-0 disabled-button"  >Complete
-                        </a>
+
                       </td>
                     </tr>
                     </tbody>

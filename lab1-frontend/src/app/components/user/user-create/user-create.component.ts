@@ -4,6 +4,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {User} from "../../../common/user";
+import {ProjectService} from "../../../services/project.service";
 
 
 @Component({
@@ -20,11 +21,13 @@ import {User} from "../../../common/user";
 })
 export class UserCreateComponent implements OnInit{
   userForm: FormGroup;
+  canIDelete: { [key: number]: boolean } = {}; // Store delete permissions for each user
+
 
   users: any[] = []; // Replace with your actual user model
   roles: any[] = []; // Replace with your actual role model
 
-  constructor(private fb: FormBuilder , private userService : UserService, private router :Router) {
+  constructor(private fb: FormBuilder , private userService : UserService, private router :Router,private projectService:ProjectService) {
     this.userForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -51,6 +54,8 @@ export class UserCreateComponent implements OnInit{
   loadUsers() {
     this.userService.getAllUsers().subscribe(data =>{
       this.users=data;
+      this.checkUsersProjectsOrTasks(); // Check projects/tasks after loading users
+
     })
   }
 
@@ -92,6 +97,21 @@ export class UserCreateComponent implements OnInit{
   onUpdate(user: number) {
 
     this.router.navigate([`/layout/user-edit/${user}`]); // Navigating to 'user-edit' route with user ID
+
+  }
+
+  checkUsersProjectsOrTasks() {
+    this.users.forEach(user => {
+      this.projectService.hasProjectsOrTasks(user.id).subscribe(
+        (result: boolean) => {
+          this.canIDelete[user.id] = !result; // Set canIDelete to true if no tasks/projects exist
+        },
+        (error) => {
+          console.error('Error fetching data:', error);
+          this.canIDelete[user.id] = true; // Default to true if there’s an error
+        }
+      );
+    });
   }
 
   onDelete(userName: number) {

@@ -23,7 +23,7 @@ export class Admin implements CanActivate {
         if (role === "Admin"){
           return true
         }
-      return this.router.parseUrl("/");
+      return this.router.parseUrl("/layout");
 
 
       throw new Error("Method not implemented.");

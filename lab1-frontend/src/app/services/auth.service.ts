@@ -16,6 +16,9 @@ export class AuthService {
   private readonly accessTokenExpiryKey = 'accessTokenExpiry';
   currentUserEmail = new BehaviorSubject<string | null>(null);
 
+
+
+
   constructor(private httpClient: HttpClient, private router: Router) {
     // Check authentication status on application startup
     this.checkIsAuthenticated();
@@ -44,7 +47,7 @@ export class AuthService {
     localStorage.removeItem(this.accessTokenKey);
     console.log('Logged out');
     this.isAuthenticated.next(false);
-    this.router.navigateByUrl("/login");
+    this.router.navigateByUrl("/");
   }
 
   setTokens(accessToken: string, refreshToken: string): void {

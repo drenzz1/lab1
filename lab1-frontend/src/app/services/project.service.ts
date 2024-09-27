@@ -67,4 +67,8 @@ export class ProjectService {
   getProjectById(projectId: number):Observable<ProjectDto>  {
     return this.http.get<ProjectDto>(`http://localhost:8080/api/project/list-all/${projectId}` ,{headers: this.getHeaders()})
   }
+
+  hasProjectsOrTasks(userId: number):Observable<boolean> {
+    return this.http.get<boolean>(` http://localhost:8080/api/project/hasTaskOrProject/${userId}`,{headers: this.getHeaders()});
+  }
 }

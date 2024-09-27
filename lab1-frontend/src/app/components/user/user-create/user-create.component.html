@@ -166,8 +166,10 @@
                       <td>{{ user.role.description }}</td>
                       <td class="actions">
                         <button type="button" class="btn btn-warning btn-sm" (click)="onUpdate(user.id)">Update</button>
-                        <button type="button" class="btn btn-secondary btn-sm" (click)="onDelete(user.id)">Delete</button>
+                        <button type="button" class="btn btn-secondary btn-sm"
+                                *ngIf="canIDelete[user.id]" (click)="onDelete(user.id)">Delete</button>
                       </td>
+
                     </tr>
                     </tbody>
                   </table>

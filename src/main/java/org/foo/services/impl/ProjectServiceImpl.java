@@ -128,4 +128,9 @@ public class ProjectServiceImpl implements ProjectService {
    return  projectMapper.apply(projectRepository.findById(id).get());
 
   }
+
+  @Override
+  public boolean doesUserHaveAProject(Long id) {
+    return projectRepository.existsByAssignedManager_Id(id);
+  }
 }
