@@ -29,4 +29,6 @@ public interface TaskService {
   List<TaskDto> readAllByAssignedEmployee(User assignedEmployee);
 
   void updateStatus(Long id, String status);
+
+    boolean doesUserHaveATask(Long id);
 }

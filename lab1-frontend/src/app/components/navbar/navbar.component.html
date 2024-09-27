@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-xs-2"></div>
         <div class="marquee ">
-          <h1 class="col-xs-8 text-whitei text-center">Company Title</h1>
+          <h1 class="col-xs-8 text-whitei text-center">{{this.name}}</h1>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
             <button class="button-48 " routerLink="/profile"><span class="text">Profile</span></button>
             <span class="status"></span>
           </div>
-          <button class="button-48 "   routerLink="/" > <span class="text">Log Out</span></button>
+          <button class="button-48 "  (click)="logOut()" > <span class="text">Log Out</span></button>
         </div>
       </li>
     </ul>

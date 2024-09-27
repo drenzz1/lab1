@@ -20,7 +20,7 @@ export class Employee implements CanActivate {
       if (role === "Employee"){
         return true;
       }
-      return this.router.parseUrl("/");
+      return this.router.parseUrl("/layout");
 
       throw new Error("Method not implemented.");
     }

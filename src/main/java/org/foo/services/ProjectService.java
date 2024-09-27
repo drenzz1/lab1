@@ -17,4 +17,6 @@ public interface ProjectService {
   List<ProjectDto> readAllByAssignedManager(User assignedManager);
 
   ProjectDto findById(Long id);
+
+    boolean doesUserHaveAProject(Long id);
 }

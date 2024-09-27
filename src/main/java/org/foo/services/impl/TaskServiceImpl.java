@@ -151,6 +151,11 @@ public class TaskServiceImpl implements TaskService {
     });
   }
 
+  @Override
+  public boolean doesUserHaveATask(Long id) {
+    return taskRepository.existsByAssignedEmployee_Id(id);
+  }
+
   private List<TaskDto>listAllByProject(ProjectDto projectDTO){
 
     List<Task>list = taskRepository.findAllByProject(projectRepository.findById(projectDTO.getId()).get());

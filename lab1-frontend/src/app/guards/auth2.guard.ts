@@ -16,7 +16,7 @@ export class AuthGuard2 implements CanActivate {
     console.log(localStorage.getItem('refreshToken'));
 
     if (localStorage.getItem('refreshToken') == null) {
-      return this.router.parseUrl('/login');
+      return this.router.parseUrl('/');
     } else {
       return true;
     }

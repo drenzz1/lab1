@@ -2,6 +2,7 @@ package org.foo.controllers;
 
 import org.foo.dto.ProjectDto;
 import org.foo.services.ProjectService;
+import org.foo.services.TaskService;
 import org.foo.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +12,12 @@ import java.util.List;
 @RequestMapping("/api/project")
 public class ProjectController {
   private final ProjectService projectService;
+  private final TaskService taskService;
 
 
-  public ProjectController(ProjectService projectService) {
+  public ProjectController(ProjectService projectService, TaskService taskService) {
     this.projectService = projectService;
-
+    this.taskService = taskService;
   }
 
   @GetMapping("/list-all")
@@ -45,6 +47,14 @@ public class ProjectController {
   @GetMapping("/complete/{id}")
   public void completeProject(@PathVariable Long id) {
     projectService.complete(id);
+  }
+
+  @GetMapping("/hasTaskOrProject/{id}")
+  public boolean hasTaskOrProject(@PathVariable Long id) {
+   boolean a =  projectService.doesUserHaveAProject(id);
+   boolean b = taskService.doesUserHaveATask(id);
+
+   return a || b;
   }
 
 
